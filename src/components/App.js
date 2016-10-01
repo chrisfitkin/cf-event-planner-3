@@ -1,16 +1,12 @@
 import React from 'react'
-import Footer from './Footer'
-import AddTodo from '../containers/AddTodo'
-import AddEvent from '../containers/AddEvent'
-import VisibleTodoList from '../containers/VisibleTodoList'
+import EventListPage from './EventListPage'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 const App = () => (
   <div>
-    <AddTodo />
-    <VisibleTodoList />
-    <Footer />
-    <hr />
-    <AddEvent />
+    <MuiThemeProvider>
+      <EventListPage />
+    </MuiThemeProvider>
   </div>
 )
 

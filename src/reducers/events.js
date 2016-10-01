@@ -5,15 +5,15 @@ const event = (state, action) => {
         id: action.id,
         title: action.title
       }
-    // case 'TOGGLE_TODO':
-    //   if (state.id !== action.id) {
-    //     return state
-    //   }
-    //
-    //   return {
-    //     ...state,
-    //     completed: !state.completed
-    //   }
+    case 'TOGGLE_EVENT':
+      if (state.id !== action.id) {
+        return state
+      }
+
+      return {
+        ...state,
+        favorite: !state.favorite
+      }
     default:
       return state
   }
@@ -26,10 +26,10 @@ const events = (state = [], action) => {
         ...state,
         event(undefined, action)
       ]
-    // case 'TOGGLE_TODO':
-    //   return state.map(t =>
-    //     todo(t, action)
-    //   )
+    case 'TOGGLE_EVENT':
+      return state.map(t =>
+        event(t, action)
+      )
     default:
       return state
   }

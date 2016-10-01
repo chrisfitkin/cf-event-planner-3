@@ -5,9 +5,15 @@ export const addTodo = (text) => ({
   text
 })
 
+export const toggleEvent = (id) => ({
+  type: 'TOGGLE_EVENT',
+  id
+})
+
+
 let nextEventId = 0
 export const addEvent = (title) => ({
-  type: 'ADD_TODO',
+  type: 'ADD_EVENT',
   id: nextEventId++,
   title
 })
