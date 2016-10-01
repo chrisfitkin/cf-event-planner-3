@@ -5,24 +5,27 @@ import Menu from 'material-ui/Menu'
 import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
-import { IndexLink, Link } from 'react-router'
+import { IndexLink, Link, FontIcon } from 'react-router'
 
 // import './Navigation.scss'
 
 export const Navigation = () => (
-  <div>
-    <Menu>
-      <IndexLink to='/' activeClassName='route--active'>
-        <MenuItem primaryText="Home" />
-      </IndexLink>
-      <Link to='/events' activeClassName='route--active'>
-        <MenuItem primaryText="Events" />
-      </Link>
-      <Link to='/events/create' activeClassName='route--active'>
-        <MenuItem primaryText="New Event" />
-      </Link>
-    </Menu>
-  </div>
+  <IconMenu
+    iconButtonElement={
+      <IconButton><MoreVertIcon /></IconButton>
+    }
+    targetOrigin={{horizontal: 'right', vertical: 'top'}}
+    anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+  >
+      <MenuItem
+        containerElement={<IndexLink to="/" activeClassName='route--active' />}
+        primaryText="Events"
+      />
+      <MenuItem
+        containerElement={<IndexLink to="/create" activeClassName='route--active' />}
+        primaryText="Add Event"
+      />
+  </IconMenu>
 )
 
 export default Navigation
