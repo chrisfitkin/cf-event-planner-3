@@ -5,6 +5,13 @@ export const addTodo = (text) => ({
   text
 })
 
+let nextEventId = 0
+export const addEvent = (title) => ({
+  type: 'ADD_TODO',
+  id: nextEventId++,
+  title
+})
+
 export const setVisibilityFilter = (filter) => ({
   type: 'SET_VISIBILITY_FILTER',
   filter
