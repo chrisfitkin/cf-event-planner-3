@@ -1,14 +1,15 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { browserHistory } from 'react-router'
-import { syncHistoryWithStore } from 'react-router-redux'
-import Root from './containers/Root'
-import configureStore from './store/configureStore'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import App from './components/App'
+import reducer from './reducers'
 
-const store = configureStore()
-const history = syncHistoryWithStore(browserHistory, store)
+const store = createStore(reducer)
 
 render(
-  <Root store={store} history={history} />,
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById('root')
 )
