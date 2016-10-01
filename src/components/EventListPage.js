@@ -14,7 +14,6 @@ const style = {
 
 const App = () => (
   <div>
-      <AddEvent />
       <Filter />
       <EventListContainer />
 

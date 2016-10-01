@@ -13,6 +13,8 @@ import AddEvent from './containers/AddEvent'
 
 import injectTapEventPlugin from 'react-tap-event-plugin'
 
+import { addEvent } from './actions'
+
 const reducer = combineReducers({
   ...reducers,
   routing: routerReducer
@@ -41,3 +43,8 @@ render(
   </Provider>,
   document.getElementById('root')
 )
+
+// Add some default event items (probably find a better place to do this)
+store.dispatch(addEvent("Default Event 1"));
+store.dispatch(addEvent("Default Event 2"));
+store.dispatch(addEvent("Default Event 3"));
