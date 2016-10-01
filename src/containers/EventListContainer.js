@@ -7,7 +7,7 @@ const getVisibleEvents = (events, filter) => {
     case 'SHOW_ALL':
       return events
     case 'SHOW_FAVORITE':
-      return events.filter(t => t.completed)
+      return events.filter(t => t.favorite)
     default:
       throw new Error('Unknown filter: ' + filter)
   }

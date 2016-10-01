@@ -3,7 +3,8 @@ const event = (state, action) => {
     case 'ADD_EVENT':
       return {
         id: action.id,
-        title: action.title
+        title: action.title,
+        favorite: action.favorite,
       }
     case 'TOGGLE_EVENT':
       if (state.id !== action.id) {

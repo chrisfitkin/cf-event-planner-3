@@ -15,6 +15,7 @@ let nextEventId = 0
 export const addEvent = (title) => ({
   type: 'ADD_EVENT',
   id: nextEventId++,
+  favorite: false,
   title
 })
 
