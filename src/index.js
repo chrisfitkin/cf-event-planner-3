@@ -1,13 +1,27 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { createStore } from 'redux'
+import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
+
+import { Router, Route, IndexRoute, browserHistory } from 'react-router'
+import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
+
+import * as reducers from './reducers'
 import App from './components/App'
-import reducer from './reducers'
-import injectTapEventPlugin from 'react-tap-event-plugin';
+import EventListPage from './components/EventListPage'
+import AddEvent from './containers/AddEvent'
+
+import injectTapEventPlugin from 'react-tap-event-plugin'
+
+const reducer = combineReducers({
+  ...reducers,
+  routing: routerReducer
+})
 
 // const store = createStore(reducer)
 const store = createStore(reducer, window.devToolsExtension && window.devToolsExtension());
+
+const history = syncHistoryWithStore(browserHistory, store)
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
@@ -15,7 +29,15 @@ injectTapEventPlugin();
 
 render(
   <Provider store={store}>
-    <App />
+    <div>
+      <Router history={history}>
+        <Route path="/" component={App}>
+          <IndexRoute component={EventListPage}/>
+          <Route path="events" component={EventListPage}/>
+          <Route path="create" component={AddEvent}/>
+        </Route>
+      </Router>
+    </div>
   </Provider>,
   document.getElementById('root')
 )

@@ -9,13 +9,19 @@ const getVisibleEvents = (events, filter) => {
     case 'SHOW_FAVORITE':
       return events.filter(t => t.favorite)
     default:
-      throw new Error('Unknown filter: ' + filter)
+      // throw new Error('Unknown filter: ' + filter)
+      console.log('Unknown filter: ' + filter)
+      return events
   }
 }
 
-const mapStateToProps = (state) => ({
-  events: getVisibleEvents(state.events, state.visibilityFilter)
-})
+const mapStateToProps = (state) => {
+  // console.log("------------")
+  // console.log(state)
+  return ({
+    events: getVisibleEvents(state.default.events, state.default.visibilityFilter)
+  })
+}
 
 const mapDispatchToProps =  ({
   onEventClick: toggleEvent
