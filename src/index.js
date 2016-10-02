@@ -37,8 +37,7 @@ render(
         <Route path="/" component={App}>
           <IndexRoute component={EventListPage}/>
           <Route path="events" component={EventListPage}/>
-          <Route path="create" component={AddEvent}/>
-          <Route path="createStepper" component={AddEventStepper}/>
+          <Route path="create" component={AddEventStepper}/>
         </Route>
       </Router>
     </div>
@@ -47,6 +46,19 @@ render(
 )
 
 // Add some default event items (probably find a better place to do this)
-store.dispatch(addEvent("Default Event 1"));
-store.dispatch(addEvent("Default Event 2"));
-store.dispatch(addEvent("Default Event 3"));
+let defaultEvent = {
+  title: 'My new event',
+  host: 'Chris Fitkin',
+  eventType: 'Pizza party',
+  startDate: '10/1/2016',
+  startTime: '12 pm',
+  endDate: '10/1/2016',
+  endTime: '3pm',
+  location: '123 Main St',
+  message: 'Everybody come over for pizza!',
+  inviteList: 'cfitkin@gmail.com, chrisfitkin@gmail.com'
+}
+store.dispatch(addEvent(defaultEvent));
+store.dispatch(addEvent({title:"Default Event 1"}));
+store.dispatch(addEvent({title:"Default Event 2"}));
+store.dispatch(addEvent({title:"Default Event 3"}));

@@ -1,8 +1,13 @@
 import React, { PropTypes } from 'react'
 import Event from './Event'
 
+import {List, ListItem} from 'material-ui/List';
+import Divider from 'material-ui/Divider';
+import Subheader from 'material-ui/Subheader';
+
+
 const EventList = ({ events, onEventClick }) => (
-  <ul>
+  <List>
     {events.map(event =>
       <Event
         key={event.id}
@@ -10,7 +15,7 @@ const EventList = ({ events, onEventClick }) => (
         onClick={() => onEventClick(event.id)}
       />
     )}
-  </ul>
+  </List>
 )
 
 EventList.propTypes = {

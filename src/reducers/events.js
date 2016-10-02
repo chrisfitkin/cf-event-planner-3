@@ -5,6 +5,15 @@ const event = (state, action) => {
         id: action.id,
         title: action.title,
         favorite: action.favorite,
+        host: action.host,
+        eventType: action.eventType,
+        startDate: action.startDate,
+        startTime: action.startTime,
+        endDate: action.endDate,
+        endTime: action.endTime,
+        location: action.location,
+        message: action.message,
+        inviteList: action.inviteList
       }
     case 'TOGGLE_EVENT':
       if (state.id !== action.id) {

@@ -21,7 +21,7 @@ class AddEventStepper extends React.Component {
 
   constructor(props){
     super(props)
-    const maxSteps = 3
+    const maxSteps=3
   }
 
   state = {
@@ -29,11 +29,10 @@ class AddEventStepper extends React.Component {
     title: '',
     host: '',
     eventType: '',
-    startDate: '',
-    startTime: '',
-    endDate: '',
-    endTime: '',
-    guestList: '',
+    startDate: {},
+    startTime: {},
+    endDate: {},
+    endTime: {},
     location: '',
     message: '',
     inviteList: ''
@@ -46,8 +45,9 @@ class AddEventStepper extends React.Component {
   }
 
   handleNext = () => {
+    let maxSteps = 3
     const {stepIndex} = this.state;
-    if (stepIndex < this.maxSteps-1) {
+    if (stepIndex < maxSteps) {
       this.setState({stepIndex: stepIndex + 1});
     }
   };
@@ -61,14 +61,15 @@ class AddEventStepper extends React.Component {
 
   handleSubmit = () => {
     const { dispatch } = this.props;
-    dispatch(addEvent(this.state.title))
+    dispatch(addEvent(this.state))
     browserHistory.push('/')
   }
 
   renderStepActions(step) {
+    let maxSteps = 3
     return (
       <div style={{margin: '12px 0'}}>
-        {step < this.maxSteps && (
+        {step < maxSteps-1 && (
           <RaisedButton
             label="Next"
             disableTouchRipple={true}
@@ -78,7 +79,7 @@ class AddEventStepper extends React.Component {
             style={{marginRight: 12}}
           />
         )}
-        {step > 0 && (
+        {step >= maxSteps-1 && (
           <RaisedButton
             label="Create Event"
             disableTouchRipple={true}
@@ -102,7 +103,7 @@ class AddEventStepper extends React.Component {
 
   render() {
     const {stepIndex} = this.state;
-    let title, host, eventType, startDate, startTime, endDate, endTime, guestList, location, message, inviteList
+    let title, host, eventType, startDate, startTime, endDate, endTime, location, message, inviteList
     let today = new Date();
     let todayFormatted = moment(today).format('MM/DD/YYYY');
     const eventTypeOptions = ["Birthday Party", "Conference", "Wedding", "Dinner", "Meet Up", "Work Meeting", "Drinks", "Baseball Game"]
@@ -131,7 +132,7 @@ class AddEventStepper extends React.Component {
               <StepContent>
                 <TextField
                   floatingLabelText="Name your event"
-                  hintText="A day at the beach"
+                  hintText="My awesome party"
                   autoComplete="title"
                   autoFocus
                   required

@@ -1,5 +1,5 @@
 import React from 'react'
-import Filter from './Filter'
+import Filter from '../containers/Filter'
 import AddEvent from '../containers/AddEvent'
 import EventListContainer from '../containers/EventListContainer'
 import FloatingActionButton from 'material-ui/FloatingActionButton';

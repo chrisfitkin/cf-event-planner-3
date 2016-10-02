@@ -3,6 +3,9 @@ import { toggleEvent } from '../actions'
 import EventList from '../components/EventList'
 
 const getVisibleEvents = (events, filter) => {
+  events.sort(function(a, b){
+      return b.id-a.id
+  })
   switch (filter) {
     case 'SHOW_ALL':
       return events
