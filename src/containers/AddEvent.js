@@ -12,13 +12,21 @@ import MenuItem from 'material-ui/MenuItem';
 import AddressAutoComplete from '../components/AddressAutoComplete'
 import PlaceAutoComplete from '../components/PlaceAutoComplete'
 
-const onHostChange = (address, element) => {
+const onHostChange = (address, target) => {
 
     // element.input.value = `${address.street_number} ${address.route}`
-  element.state.value = `${address.street_number} ${address.route}`
+  // target.state.value = `${address.street_number} ${address.route}`
   console.log("--------------------")
   console.log(address)
-  console.log(element)
+  console.log(target)
+  // target.props.value="test"
+  // target.forceUpdate()
+
+  target.setState({value: `${address.street_number} ${address.route}`});
+  console.log(target)
+
+  // let addressInput = document.getElementById('addressAutocompleteField')
+  // addressInput.value="test"
 }
 
 // Check this out for submit handling
@@ -62,7 +70,7 @@ let AddEvent = ({ dispatch }) => {
         hintText="John Smith or Acme, Co."
         floatingLabelText="Who is hosting"
         autoComplete="name"
-        onChange={props => onHostChange(props, location)}
+        onChange={address => onHostChange(address, location)}
         required
         ref={node => { host = node}}
       /><br/>
