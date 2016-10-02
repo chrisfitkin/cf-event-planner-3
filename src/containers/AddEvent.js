@@ -10,6 +10,16 @@ import TimePicker from 'material-ui/TimePicker'
 import AutoComplete from 'material-ui/AutoComplete'
 import MenuItem from 'material-ui/MenuItem';
 import AddressAutoComplete from '../components/AddressAutoComplete'
+import PlaceAutoComplete from '../components/PlaceAutoComplete'
+
+const onHostChange = (address, element) => {
+
+    // element.input.value = `${address.street_number} ${address.route}`
+  element.state.value = `${address.street_number} ${address.route}`
+  console.log("--------------------")
+  console.log(address)
+  console.log(element)
+}
 
 // Check this out for submit handling
 // https://github.com/chrisfitkin/react-redux-blog/blob/master/public/src/components/PostsForm.js
@@ -48,18 +58,19 @@ let AddEvent = ({ dispatch }) => {
         required
         ref={node => { eventType = node }}
       /><br/>
+      <PlaceAutoComplete
+        hintText="John Smith or Acme, Co."
+        floatingLabelText="Who is hosting"
+        autoComplete="name"
+        onChange={props => onHostChange(props, location)}
+        required
+        ref={node => { host = node}}
+      /><br/>
       <AddressAutoComplete
         floatingLabelText="Where is it"
         hintText="123 Main Street, Los Angeles, CA"
         required
         ref={node => { location = node }}
-      /><br/>
-      <TextField
-        hintText="John Smith or Acme, Co."
-        floatingLabelText="Who is hosting"
-        autoComplete="name"
-        required
-        ref={node => { host = node}}
       /><br/>
       <DatePicker
         autoOk
