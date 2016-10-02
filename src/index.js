@@ -10,6 +10,7 @@ import * as reducers from './reducers'
 import App from './components/App'
 import EventListPage from './components/EventListPage'
 import AddEvent from './containers/AddEvent'
+import AddEventStepper from './containers/AddEventStepper'
 
 import injectTapEventPlugin from 'react-tap-event-plugin'
 
@@ -37,6 +38,7 @@ render(
           <IndexRoute component={EventListPage}/>
           <Route path="events" component={EventListPage}/>
           <Route path="create" component={AddEvent}/>
+          <Route path="createStepper" component={AddEventStepper}/>
         </Route>
       </Router>
     </div>

@@ -13,26 +13,14 @@ import AddressAutoComplete from '../components/AddressAutoComplete'
 import PlaceAutoComplete from '../components/PlaceAutoComplete'
 
 const onHostChange = (address, target) => {
-
-    // element.input.value = `${address.street_number} ${address.route}`
-  // target.state.value = `${address.street_number} ${address.route}`
-  console.log("--------------------")
-  console.log(address)
-  console.log(target)
-  // target.props.value="test"
-  // target.forceUpdate()
-
-  target.setState({value: `${address.street_number} ${address.route}`});
-  console.log(target)
-
-  // let addressInput = document.getElementById('addressAutocompleteField')
-  // addressInput.value="test"
+  target.setState({value: `${address.street_number} ${address.route}`})
+  // console.log(target)
 }
 
 // Check this out for submit handling
 // https://github.com/chrisfitkin/react-redux-blog/blob/master/public/src/components/PostsForm.js
 let AddEvent = ({ dispatch }) => {
-  let title, host, eventType, startDate, startTime, endDate, endTime, guestList, location, message
+  let title, host, eventType, startDate, startTime, endDate, endTime, guestList, location, message, inviteList
   let today = new Date();
   let todayFormatted = moment(today).format('MM/DD/YYYY');
   const eventTypeOptions = ["Birthday Party", "Conference", "Wedding", "Dinner", "Meet Up", "Work Meeting", "Drinks", "Baseball Game"]
@@ -48,7 +36,6 @@ let AddEvent = ({ dispatch }) => {
         title.input.value = ''
         title.focus()
       }}>
-
       <TextField
         floatingLabelText="Name your event"
         hintText="A day at the beach"
@@ -67,10 +54,10 @@ let AddEvent = ({ dispatch }) => {
         ref={node => { eventType = node }}
       /><br/>
       <PlaceAutoComplete
-        hintText="John Smith or Acme, Co."
-        floatingLabelText="Who is hosting"
+        hintText="Acme, Co. or John Smith"
+        floatingLabelText="Hosted by"
         autoComplete="name"
-        onChange={address => onHostChange(address, location)}
+        onChange={address => onHostChange(address)}
         required
         ref={node => { host = node}}
       /><br/>
@@ -87,7 +74,7 @@ let AddEvent = ({ dispatch }) => {
         name='startDate'
         ref={ref => { startDate = ref }}
         hintText={todayFormatted}
-      />
+      /><br/>
       <TimePicker
         hintText="12hr Format"
         autoOk
@@ -95,7 +82,7 @@ let AddEvent = ({ dispatch }) => {
         name="startTime"
         ref={ref => { startTime = ref }}
         format="ampm"
-      />
+      /><br/>
       <DatePicker
         autoOk
         floatingLabelText="Ending day"
@@ -103,7 +90,7 @@ let AddEvent = ({ dispatch }) => {
         name='endDate'
         ref={ref => { endDate = ref }}
         hintText={todayFormatted}
-      />
+      /><br/>
       <TimePicker
         hintText="12hr Format"
         autoOk
@@ -111,8 +98,21 @@ let AddEvent = ({ dispatch }) => {
         ref={ref => { endTime = ref }}
         floatingLabelText="Ending time"
         format="ampm"
+      /><br/>
+      <TextField
+        floatingLabelText="Invite your friends"
+        hintText="chris@coolcompany.com, mike@awesome.com, kim@yahoo.com"
+        multiLine={true}
+        rows={3}
+        ref={node => { inviteList = node}}
+      /><br/>
+      <TextField
+        floatingLabelText="Send a message"
+        hintText="Hi friends! Come join me at my cool new event :)"
+        multiLine={true}
+        rows={3}
+        ref={node => { inviteList = node}}
       />
-      <br/>
       <br/>
       <RaisedButton className='btn btn-default' type="submit">
         Add Event
