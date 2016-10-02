@@ -1,4 +1,6 @@
 import React from 'react';
+import { browserHistory } from 'react-router'
+import { connect } from 'react-redux'
 import moment from 'moment';
 import { addEvent } from '../actions'
 import { Step, Stepper, StepButton, StepContent } from 'material-ui/Stepper'
@@ -16,6 +18,11 @@ import PlaceAutoComplete from '../components/PlaceAutoComplete'
  * A basic vertical non-linear implementation
  */
 class AddEventStepper extends React.Component {
+
+  constructor(props){
+    super(props)
+    const maxSteps = 3
+  }
 
   state = {
     stepIndex: 0,
@@ -38,11 +45,9 @@ class AddEventStepper extends React.Component {
     // console.log(target)
   }
 
-
   handleNext = () => {
-    let maxSteps = 3
     const {stepIndex} = this.state;
-    if (stepIndex < maxSteps-1) {
+    if (stepIndex < this.maxSteps-1) {
       this.setState({stepIndex: stepIndex + 1});
     }
   };
@@ -54,17 +59,35 @@ class AddEventStepper extends React.Component {
     }
   };
 
+  handleSubmit = () => {
+    const { dispatch } = this.props;
+    dispatch(addEvent(this.state.title))
+    browserHistory.push('/')
+  }
+
   renderStepActions(step) {
     return (
       <div style={{margin: '12px 0'}}>
-        <RaisedButton
-          label="Next"
-          disableTouchRipple={true}
-          disableFocusRipple={true}
-          primary={true}
-          onTouchTap={this.handleNext}
-          style={{marginRight: 12}}
-        />
+        {step < this.maxSteps && (
+          <RaisedButton
+            label="Next"
+            disableTouchRipple={true}
+            disableFocusRipple={true}
+            primary={true}
+            onTouchTap={this.handleNext}
+            style={{marginRight: 12}}
+          />
+        )}
+        {step > 0 && (
+          <RaisedButton
+            label="Create Event"
+            disableTouchRipple={true}
+            disableFocusRipple={true}
+            primary={true}
+            onTouchTap={this.handleSubmit}
+            style={{marginRight: 12}}
+          />
+        )}
         {step > 0 && (
           <FlatButton
             label="Back"
@@ -230,5 +253,6 @@ class AddEventStepper extends React.Component {
     );
   }
 }
+AddEventStepper = connect()(AddEventStepper)
 
 export default AddEventStepper;
