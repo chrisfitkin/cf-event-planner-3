@@ -10,22 +10,25 @@ import EditorInsertChart from 'material-ui/svg-icons/editor/insert-chart';
 import Divider from 'material-ui/Divider';
 import {pink50, pinkA200, darkBlack, transparent} from 'material-ui/styles/colors';
 import ActionGrade from 'material-ui/svg-icons/action/grade';
+import moment from 'moment'
 
 // { favorite ? '<b>favorite</b>' : '' }
 
 const Event = (props) => {
-  const { onClick, favorite, title, host } = props
+  const { onClick, favorite, title, host, eventType, startDate, startTime,
+    endDate, endTime, location, message, inviteList } = props
+  let separator = "  --  "
   return (
     <div>
       <ListItem
         onClick={onClick}
         leftAvatar={<Avatar icon={<EventIcon />} />}
         rightIcon={<ActionGrade color={favorite ? pinkA200 : pink50} />}
-        primaryText={title}
+        primaryText={title + separator + eventType}
           secondaryText={
             <p>
-              <span style={{color: darkBlack}}>{host}</span> &nbsp;&nbsp;--&nbsp;&nbsp;
-              <i>TODO: Implement all fields in event list items</i>
+              <span style={{color: darkBlack}}>{host}</span>{" "+location}
+              <br/><i>{moment(startDate).format('L')}{" at "}{moment(startTime).format('LT')}</i>
             </p>
           }
           secondaryTextLines={2}

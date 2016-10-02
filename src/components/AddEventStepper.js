@@ -35,8 +35,11 @@ class AddEventStepper extends React.Component {
     endTime: {},
     location: '',
     message: '',
-    inviteList: ''
-  };
+    inviteList: '',
+    errors: {
+      title: ''
+    }
+  }
 
   onHostChange (address, target){
     target.setState({value: `${address.street_number} ${address.route}`})
@@ -101,6 +104,23 @@ class AddEventStepper extends React.Component {
     );
   }
 
+  handleValidate = (field, value) => {
+    console.log(field)
+    console.log(value)
+    let newState;
+    switch (field) {
+      case 'title' :
+          newState = { errors: { title: value=="" ? 'required' : null } }
+        break;
+    }
+    console.log(newState)
+    // if (newState.length) {
+      this.setState(newState)
+      this.forceUpdate()
+    // }
+    console.log(this.state)
+  }
+
   render() {
     const {stepIndex} = this.state;
     let title, host, eventType, startDate, startTime, endDate, endTime, location, message, inviteList
@@ -138,7 +158,9 @@ class AddEventStepper extends React.Component {
                   required
                   ref={node => { title = node}}
                   value={this.state.title}
-                  onChange={e => this.setState({title: e.target.value})}
+                  onChange={e => {this.setState({title: e.target.value});}}
+                  onBlur={e => this.handleValidate('title',e.target.value)}
+                  errorText={this.state.errors.title}
                 /><br/>
                 <AutoComplete
                   floatingLabelText="Type of event"
