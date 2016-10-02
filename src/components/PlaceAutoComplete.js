@@ -7,6 +7,7 @@ export default class AddressAutoComplete extends Component {
     floatingLabelText: PropTypes.string,
     hintText: PropTypes.string,
     autoComplete: PropTypes.string,
+    value: PropTypes.string,
     onChange: PropTypes.func
   }
 
@@ -49,7 +50,7 @@ export default class AddressAutoComplete extends Component {
       input.value = `${selectedPlace.name}`
       //addressInput.value = `${selectedSuggest.street_number} ${selectedSuggest.route}`
       if (typeof this.props.onChange === "function") {
-        this.props.onChange(selectedSuggest)
+        this.props.onChange(selectedSuggest, input.value)
       }
     })
   }

@@ -42,7 +42,7 @@ export default class AddressAutoComplete extends Component {
       // input.value = selectedPlace.name // Code injection risk (check doc)
       input.value = `${selectedSuggest.street_number} ${selectedSuggest.route}`
       if (typeof this.props.onChange === "function") {
-        this.props.onChange(selectedSuggest)
+        this.props.onChange(input.value)
       }
     })
   }
