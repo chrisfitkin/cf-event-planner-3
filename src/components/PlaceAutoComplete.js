@@ -8,6 +8,7 @@ export default class AddressAutoComplete extends Component {
     hintText: PropTypes.string,
     autoComplete: PropTypes.string,
     value: PropTypes.string,
+    onBlur: PropTypes.func,
     onChange: PropTypes.func
   }
 
@@ -48,6 +49,8 @@ export default class AddressAutoComplete extends Component {
       // input.value = selectedPlace.name // Code injection risk (check doc)
       // input.value = `${selectedSuggest.street_number} ${selectedSuggest.route}`
       input.value = `${selectedPlace.name}`
+      // this.setState({value: input.value})
+
       //addressInput.value = `${selectedSuggest.street_number} ${selectedSuggest.route}`
       if (typeof this.props.onChange === "function") {
         this.props.onChange(selectedSuggest, input.value)
@@ -66,6 +69,7 @@ export default class AddressAutoComplete extends Component {
         autoComplete={this.props.autoComplete}
         value={this.state.value}
         onChange={this._handleChange}
+        // onBlur={this.props.onBlur(this.state.value)} // this is causing an infinite loop :()
         placeholder=''
       />
     )

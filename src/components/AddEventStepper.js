@@ -112,6 +112,9 @@ class AddEventStepper extends React.Component {
       case 'title' :
           newState = { errors: { ...this.state.errors, title: value=="" ? 'required' : null } }
         break;
+      case 'eventType' :
+          newState = { errors: { ...this.state.errors, eventType: value=="" ? 'required' : null } }
+        break;
       case 'host' :
           newState = { errors: { ...this.state.errors, host: value=="" ? 'required' : null } }
         break;
@@ -119,7 +122,7 @@ class AddEventStepper extends React.Component {
     console.log(newState)
     if (newState.hasOwnProperty('errors')) {
       this.setState(newState)
-      this.forceUpdate()
+      // this.forceUpdate()
       console.log(this.state)
     }
   }
@@ -176,8 +179,8 @@ class AddEventStepper extends React.Component {
                   searchText={this.state.eventType}
                   onUpdateInput={searchText => this.setState({eventType: searchText})}
                   onNewRequest={chosenRequest => this.setState({eventType: chosenRequest})}
-                  onBlur={e => this.handleValidate('host',e.target.value)}
-                  errorText={this.state.errors.host}
+                  onBlur={e => this.handleValidate('eventType',e.target.value)}
+                  errorText={this.state.errors.eventType}
                 /><br/>
                 <PlaceAutoComplete
                   hintText="Acme, Co. or John Smith"
@@ -187,6 +190,8 @@ class AddEventStepper extends React.Component {
                   required
                   ref={node => { host = node}}
                   value={this.state.host}
+                  onBlur={(value) => this.handleValidate('host',value)}
+                  errorText={this.state.errors.host}
                 /><br/>
                 <AddressAutoComplete
                   floatingLabelText="Where is it"
