@@ -9,10 +9,14 @@ import { IndexLink, Link, FontIcon } from 'react-router'
 
 // import './Navigation.scss'
 
+let styles = {
+  color: '#ffffff',
+}
+
 export const Navigation = () => (
   <IconMenu
     iconButtonElement={
-      <IconButton><MoreVertIcon /></IconButton>
+      <IconButton iconStyle={styles}><MoreVertIcon /></IconButton>
     }
     targetOrigin={{horizontal: 'right', vertical: 'top'}}
     anchorOrigin={{horizontal: 'right', vertical: 'top'}}
