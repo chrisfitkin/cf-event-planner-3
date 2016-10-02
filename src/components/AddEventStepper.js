@@ -107,18 +107,21 @@ class AddEventStepper extends React.Component {
   handleValidate = (field, value) => {
     console.log(field)
     console.log(value)
-    let newState;
+    let newState = {};
     switch (field) {
       case 'title' :
-          newState = { errors: { title: value=="" ? 'required' : null } }
+          newState = { errors: { ...this.state.errors, title: value=="" ? 'required' : null } }
+        break;
+      case 'host' :
+          newState = { errors: { ...this.state.errors, host: value=="" ? 'required' : null } }
         break;
     }
     console.log(newState)
-    // if (newState.length) {
+    if (newState.hasOwnProperty('errors')) {
       this.setState(newState)
       this.forceUpdate()
-    // }
-    console.log(this.state)
+      console.log(this.state)
+    }
   }
 
   render() {
@@ -173,6 +176,8 @@ class AddEventStepper extends React.Component {
                   searchText={this.state.eventType}
                   onUpdateInput={searchText => this.setState({eventType: searchText})}
                   onNewRequest={chosenRequest => this.setState({eventType: chosenRequest})}
+                  onBlur={e => this.handleValidate('host',e.target.value)}
+                  errorText={this.state.errors.host}
                 /><br/>
                 <PlaceAutoComplete
                   hintText="Acme, Co. or John Smith"
