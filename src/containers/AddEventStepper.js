@@ -203,7 +203,24 @@ class AddEventStepper extends React.Component {
                 Invite your friends
               </StepButton>
               <StepContent>
-                <p>Lorem ipsum</p>
+                <TextField
+                  floatingLabelText="List of emails to invite"
+                  hintText="chris@coolcompany.com, mike@awesome.com, kim@yahoo.com"
+                  multiLine={true}
+                  rows={3}
+                  ref={node => { inviteList = node}}
+                  value={this.state.inviteList}
+                  onChange={e => this.setState({inviteList: e.target.value})}
+                /><br/>
+                <TextField
+                  floatingLabelText="Add a message"
+                  hintText="Hi friends! Come join me at my cool new event :)"
+                  multiLine={true}
+                  rows={2}
+                  ref={node => { message = node}}
+                  value={this.state.message}
+                  onChange={e => this.setState({message: e.target.value})}
+                />
                 {this.renderStepActions(2)}
               </StepContent>
             </Step>
