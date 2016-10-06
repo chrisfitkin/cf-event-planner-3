@@ -20,6 +20,13 @@
 // })
 // const store =
 //   (window.devToolsExtension ? window.devToolsExtension()(createStore) : createStore)(reducer)
+import { connect } from 'react-redux'
+import RegisterForm from '../components/RegisterForm'
+
+
+const Form = require('../components/RegisterForm').default
+// const readme = require('./Example.md')
+const raw = require('!!raw!../components/RegisterForm')
 
 const showResults = values =>
   new Promise(resolve => {
@@ -29,24 +36,39 @@ const showResults = values =>
     }, 500)
   })
 
-let render = () => {
-  const Form = require('../components/RegisterForm').default
-  // const readme = require('./Example.md')
-  const raw = require('!!raw!../components/RegisterForm')
-  return (
-        <div>
 
-          <h2>Register</h2>
-
-          <Form onSubmit={showResults}/>
-
-          <Values form="register"/>
-
-          <h2>Code</h2>
-
-          <h4>RegisterForm.js</h4>
-
-          <Code source={raw}/>
-        </div>
-  )
+const mapStateToProps = (state) => {
+  // return ({
+  //   events: getVisibleEvents(state.default.events, state.default.visibilityFilter)
+  // })
 }
+
+const mapDispatchToProps =  ({
+  // onEventClick: toggleEvent
+})
+
+
+let RegisterFormContainer = () => (
+      <div>
+
+        <h2>Register</h2>
+
+        <Form onSubmit={showResults}/>
+
+        <Values form="register"/>
+
+        <h2>Code</h2>
+
+        <h4>RegisterForm.js</h4>
+
+        <Code source={raw}/>
+      </div>
+)
+
+
+RegisterFormContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(RegisterForm)
+
+export default RegisterFormContainer

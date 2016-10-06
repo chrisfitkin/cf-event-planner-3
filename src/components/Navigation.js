@@ -29,6 +29,10 @@ export const Navigation = () => (
         containerElement={<IndexLink to="/create" activeClassName='route--active' />}
         primaryText="Create Event"
       />
+      <MenuItem
+        containerElement={<IndexLink to="/register" activeClassName='route--active' />}
+        primaryText="Register"
+      />
   </IconMenu>
 )
 
