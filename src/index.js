@@ -40,7 +40,7 @@ const combinedReducer = combineReducers({
 // const store = createStore(reducer)
 const store = createStore(combinedReducer, window.devToolsExtension && window.devToolsExtension());
 
-// const history = syncHistoryWithStore(browserHistory, store)
+const history = syncHistoryWithStore(browserHistory, store)
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
@@ -49,24 +49,18 @@ injectTapEventPlugin();
 render(
   <Provider store={store}>
     <div>
-      <MuiThemeProvider>
-        <RegisterPage />
-      </MuiThemeProvider>
+      <Router history={history}>
+        <Route path="/" component={App}>
+          <IndexRoute component={EventListPage}/>
+          <Route path="events" component={EventListPage}/>
+          <Route path="create" component={AddEventStepper}/>
+          <Route path="register" component={RegisterPage}/>
+        </Route>
+      </Router>
     </div>
   </Provider>,
   document.getElementById('root')
 )
-/*
-
-  <Router history={history}>
-    <Route path="/" component={App}>
-      <IndexRoute component={EventListPage}/>
-      <Route path="events" component={EventListPage}/>
-      <Route path="create" component={AddEventStepper}/>
-      <Route path="register" component={RegisterPage}/>
-    </Route>
-  </Router>
-  */
 
 // Add some default event items (probably find a better place to do this)
 let defaultEvents = [{
