@@ -1,4 +1,2 @@
-
 import { reducer as register } from 'redux-form'
-
-export default register
+export default register // mounted under "form"

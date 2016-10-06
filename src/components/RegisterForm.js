@@ -32,7 +32,7 @@ const validate = values => {
   return errors
 }
 
-class Form extends Component {
+class RegisterForm extends Component {
   componentDidMount() {
     this.refs.name            // the Field
       .getRenderedComponent() // on Field, returns ReduxFormMaterialUITextField
@@ -45,17 +45,17 @@ class Form extends Component {
     return (
       <form onSubmit={handleSubmit}>
         <div>
-          <Field name="name" component={TextField} hintText="Chris Johnson" floatingLabelText="Name" value={undefined}
-            ref="name" withRef {...name}/>
+          <Field name="name" component={TextField} hintText="Chris Johnson" floatingLabelText="Name"
+            ref="name" withRef/>
         </div>
         <div>
-          <Field name="email" component={TextField} hintText="joe@greatdomain.io" floatingLabelText="Email" value={undefined}/>
+          <Field name="email" component={TextField} hintText="joe@greatdomain.io" floatingLabelText="Email"/>
         </div>
         <div>
-          <Field name="password1" component={TextField} type="password" hintText="" floatingLabelText="Password" value={undefined}/>
+          <Field name="password1" component={TextField} type="password" hintText="" floatingLabelText="Password"/>
         </div>
         <div>
-          <Field name="password2" component={TextField} type="password" hintText="" floatingLabelText="Confirm Password" value={undefined}/>
+          <Field name="password2" component={TextField} type="password" hintText="" floatingLabelText="Confirm Password"/>
         </div>
         <div>
           <Field
@@ -76,10 +76,10 @@ class Form extends Component {
 }
 
 export default reduxForm({
-  form: 'register',
+  form: 'registerForm',
   fields: ['name', 'email'],
   initialValues: {
-    // name: 'Jane Doe'
+    name: 'Chris Fitkin'
   },
-  validate
-})(Form)
+  // validate
+})(RegisterForm)

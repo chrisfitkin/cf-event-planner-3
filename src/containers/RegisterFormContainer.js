@@ -1,4 +1,4 @@
-// import React from 'react'
+import React from 'react'
 // import ReactDOM from 'react-dom'
 // import injectTapEventPlugin from 'react-tap-event-plugin'
 // import { Provider } from 'react-redux'
@@ -23,8 +23,14 @@
 import { connect } from 'react-redux'
 import RegisterForm from '../components/RegisterForm'
 
+import {
+  Code,
+  Markdown,
+  Values
+} from 'redux-form-website-template'
 
-const Form = require('../components/RegisterForm').default
+
+// const RegisterForm = require('../components/RegisterForm').default
 // const readme = require('./Example.md')
 const raw = require('!!raw!../components/RegisterForm')
 
@@ -41,34 +47,34 @@ const mapStateToProps = (state) => {
   // return ({
   //   events: getVisibleEvents(state.default.events, state.default.visibilityFilter)
   // })
+  console.log('state.default.register.registerForm')
+  console.log(state.default.register.registerForm)
+  return {
+    register: state.default.register.registerForm // <---------
+  };
 }
 
-const mapDispatchToProps =  ({
-  // onEventClick: toggleEvent
+const mapDispatchToProps = (dispatch) =>  ({
+  onSubmit: showResults,
+  dispatch
 })
 
+let RegisterFormContainer = (props) => {
+  const Form = require('../components/RegisterForm').default
+  return (
+    <div>
 
-let RegisterFormContainer = () => (
-      <div>
+      <h2>RegisterForm</h2>
 
-        <h2>Register</h2>
+      <RegisterForm onSubmit={showResults} {...props}/>
 
-        <Form onSubmit={showResults}/>
-
-        <Values form="register"/>
-
-        <h2>Code</h2>
-
-        <h4>RegisterForm.js</h4>
-
-        <Code source={raw}/>
-      </div>
-)
-
+    </div>
+  )
+}
 
 RegisterFormContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(RegisterForm)
+)(RegisterFormContainer)
 
 export default RegisterFormContainer

@@ -20,7 +20,8 @@
     "react-toolbox": "^1.2.1",
     "redux": "^3.5.2",
     "redux-form": "^6.0.5",
-    "redux-form-material-ui": "^4.1.0"
+    "redux-form-material-ui": "^4.1.0",
+    "redux-form-website-template": "0.0.37"
   },
   "scripts": {
     "start": "react-scripts start",
