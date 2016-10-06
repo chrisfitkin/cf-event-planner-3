@@ -1,4 +1,4 @@
 
-import { reducer as registerFormReducer } from 'redux-form'
+import { register as registerFormReducer } from 'redux-form'
 
-export default registerFormReducer
+export default register
