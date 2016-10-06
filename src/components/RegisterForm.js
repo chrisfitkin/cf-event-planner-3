@@ -41,21 +41,21 @@ class Form extends Component {
   }
 
   render() {
-    const { handleSubmit, pristine, reset, submitting } = this.props
+    const { handleSubmit, pristine, reset, submitting, fields: {name, email}} = this.props
     return (
       <form onSubmit={handleSubmit}>
         <div>
-          <Field name="name" component={TextField} hintText="Chris Johnson" floatingLabelText="Name"
-            ref="name" withRef/>
+          <Field name="name" component={TextField} hintText="Chris Johnson" floatingLabelText="Name" value={undefined}
+            ref="name" withRef {...name}/>
         </div>
         <div>
-          <Field name="email" component={TextField} hintText="joe@greatdomain.io" floatingLabelText="Email"/>
+          <Field name="email" component={TextField} hintText="joe@greatdomain.io" floatingLabelText="Email" value={undefined}/>
         </div>
         <div>
-          <Field name="password1" component={TextField} type="password" hintText="" floatingLabelText="Password"/>
+          <Field name="password1" component={TextField} type="password" hintText="" floatingLabelText="Password" value={undefined}/>
         </div>
         <div>
-          <Field name="password2" component={TextField} type="password" hintText="" floatingLabelText="Confirm Password"/>
+          <Field name="password2" component={TextField} type="password" hintText="" floatingLabelText="Confirm Password" value={undefined}/>
         </div>
         <div>
           <Field
@@ -77,6 +77,7 @@ class Form extends Component {
 
 export default reduxForm({
   form: 'register',
+  fields: ['name', 'email'],
   initialValues: {
     // name: 'Jane Doe'
   },
