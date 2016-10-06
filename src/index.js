@@ -6,25 +6,39 @@ import { Provider } from 'react-redux'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 
-import * as reducers from './reducers'
+import reducer from './reducers/index'
 import App from './components/App'
 import EventListPage from './components/EventListPage'
 import AddEvent from './containers/AddEvent'
 import AddEventStepper from './components/AddEventStepper'
+import RegisterFormContainer from './containers/RegisterFormContainer'
+import RegisterPage from './components/RegisterPage'
 
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin'
 
 import { addEvent } from './actions'
 
 import style from './styles/main.css'
 
-const reducer = combineReducers({
-  ...reducers,
+// console.log('reducers')
+// console.log(reducers)
+
+const combinedReducer = combineReducers({
+  ...reducer,
   routing: routerReducer
 })
+// console.log('reducer')
+// console.log(reducer)
+// const reducer = combineReducers({
+//   ...reducers,
+//   routing: routerReducer
+// })
+
+// const reducer = Object.assign({...reducers}, {routing: routerReducer});
 
 // const store = createStore(reducer)
-const store = createStore(reducer, window.devToolsExtension && window.devToolsExtension());
+const store = createStore(combinedReducer, window.devToolsExtension && window.devToolsExtension());
 
 const history = syncHistoryWithStore(browserHistory, store)
 
@@ -40,6 +54,7 @@ render(
           <IndexRoute component={EventListPage}/>
           <Route path="events" component={EventListPage}/>
           <Route path="create" component={AddEventStepper}/>
+          <Route path="register" component={RegisterPage}/>
         </Route>
       </Router>
     </div>
@@ -48,19 +63,41 @@ render(
 )
 
 // Add some default event items (probably find a better place to do this)
-let defaultEvent = {
-  title: 'My new event',
-  host: 'Chris Fitkin',
-  eventType: 'Pizza party',
-  startDate: '10/1/2016',
-  startTime: '12 pm',
-  endDate: '10/1/2016',
-  endTime: '3pm',
-  location: '123 Main St',
-  message: 'Everybody come over for pizza!',
-  inviteList: 'cfitkin@gmail.com, chrisfitkin@gmail.com'
-}
-store.dispatch(addEvent(defaultEvent));
-store.dispatch(addEvent({title:"Default Event 1"}));
-store.dispatch(addEvent({title:"Default Event 2"}));
-store.dispatch(addEvent({title:"Default Event 3"}));
+let defaultEvents = [{
+    title: 'Christopher\'s Birthday party',
+    host: 'Chris Fitkin',
+    eventType: 'Pizza party',
+    startDate: '2016-10-16T07:00:00.000Z',
+    startTime: '2016-10-03T00:00:20.057Z',
+    endDate: '2016-10-16T07:00:00.000Z',
+    endTime: '2016-10-03T03:00:30.824Z',
+    location: '123 Main St',
+    message: 'Everybody come over for pizza!',
+    inviteList: 'cfitkin@gmail.com, chrisfitkin@gmail.com'
+  },{
+    title: 'A day at the beach',
+    host: 'Kim Fitkin',
+    eventType: 'Picnic',
+    startDate: '2016-10-21T07:00:00.000Z',
+    startTime: '2016-10-03T00:00:20.057Z',
+    endDate: '2016-10-21T07:00:00.000Z',
+    endTime: '2016-10-03T03:00:30.824Z',
+    location: '4000 N. Pacific Coast Highway',
+    message: '',
+    inviteList: ''
+  },{
+    title: 'Dinner with friends',
+    host: 'The Ranch Restaurant',
+    eventType: 'Dinner',
+    startDate: '2016-10-21T07:00:00.000Z',
+    startTime: '2016-10-03T00:00:20.057Z',
+    endDate: '2016-10-21T07:00:00.000Z',
+    endTime: '2016-10-03T03:00:30.824Z',
+    location: '1025 E Ball Rd',
+    message: '',
+    inviteList: ''
+  }]
+
+store.dispatch(addEvent(defaultEvents[0]));
+store.dispatch(addEvent(defaultEvents[1]));
+store.dispatch(addEvent(defaultEvents[2]));

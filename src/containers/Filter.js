@@ -58,7 +58,7 @@ class Filter extends React.Component {
   }
 }
 const mapStateToProps = (state, ownProps) => ({
-  currentFilter: state.default.visibilityFilter
+  currentFilter: state.visibilityFilter
 })
 
 // TODO: Pass the onclick event through dispatch

@@ -22,7 +22,7 @@ const mapStateToProps = (state) => {
   // console.log("------------")
   // console.log(state)
   return ({
-    events: getVisibleEvents(state.default.events, state.default.visibilityFilter)
+    events: getVisibleEvents(state.events, state.visibilityFilter)
   })
 }
 

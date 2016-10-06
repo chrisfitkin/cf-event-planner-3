@@ -35,8 +35,11 @@ class AddEventStepper extends React.Component {
     endTime: {},
     location: '',
     message: '',
-    inviteList: ''
-  };
+    inviteList: '',
+    errors: {
+      title: ''
+    }
+  }
 
   onHostChange (address, target){
     target.setState({value: `${address.street_number} ${address.route}`})
@@ -101,6 +104,29 @@ class AddEventStepper extends React.Component {
     );
   }
 
+  handleValidate = (field, value) => {
+    console.log(field)
+    console.log(value)
+    let newState = {};
+    switch (field) {
+      case 'title' :
+          newState = { errors: { ...this.state.errors, title: value=="" ? 'required' : null } }
+        break;
+      case 'eventType' :
+          newState = { errors: { ...this.state.errors, eventType: value=="" ? 'required' : null } }
+        break;
+      case 'host' :
+          newState = { errors: { ...this.state.errors, host: value=="" ? 'required' : null } }
+        break;
+    }
+    console.log(newState)
+    if (newState.hasOwnProperty('errors')) {
+      this.setState(newState)
+      // this.forceUpdate()
+      console.log(this.state)
+    }
+  }
+
   render() {
     const {stepIndex} = this.state;
     let title, host, eventType, startDate, startTime, endDate, endTime, location, message, inviteList
@@ -138,7 +164,9 @@ class AddEventStepper extends React.Component {
                   required
                   ref={node => { title = node}}
                   value={this.state.title}
-                  onChange={e => this.setState({title: e.target.value})}
+                  onChange={e => {this.setState({title: e.target.value});}}
+                  onBlur={e => this.handleValidate('title',e.target.value)}
+                  errorText={this.state.errors.title}
                 /><br/>
                 <AutoComplete
                   floatingLabelText="Type of event"
@@ -151,6 +179,8 @@ class AddEventStepper extends React.Component {
                   searchText={this.state.eventType}
                   onUpdateInput={searchText => this.setState({eventType: searchText})}
                   onNewRequest={chosenRequest => this.setState({eventType: chosenRequest})}
+                  onBlur={e => this.handleValidate('eventType',e.target.value)}
+                  errorText={this.state.errors.eventType}
                 /><br/>
                 <PlaceAutoComplete
                   hintText="Acme, Co. or John Smith"
@@ -160,6 +190,8 @@ class AddEventStepper extends React.Component {
                   required
                   ref={node => { host = node}}
                   value={this.state.host}
+                  onBlur={(value) => this.handleValidate('host',value)}
+                  errorText={this.state.errors.host}
                 /><br/>
                 <AddressAutoComplete
                   floatingLabelText="Where is it"

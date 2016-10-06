@@ -4,6 +4,7 @@
   "private": true,
   "devDependencies": {
     "enzyme": "^2.4.1",
+    "raw-loader": "^0.5.1",
     "react-addons-test-utils": "^15.3.0",
     "react-scripts": "^0.6.0"
   },
@@ -17,7 +18,10 @@
     "react-router-redux": "^4.0.6",
     "react-tap-event-plugin": "^1.0.0",
     "react-toolbox": "^1.2.1",
-    "redux": "^3.5.2"
+    "redux": "^3.5.2",
+    "redux-form": "^6.0.5",
+    "redux-form-material-ui": "^4.1.0",
+    "redux-form-website-template": "0.0.37"
   },
   "scripts": {
     "start": "react-scripts start",
