@@ -2,7 +2,10 @@ import React, { Component, PropTypes } from 'react'
 import Snackbar from 'material-ui/Snackbar'
 import RegisterForm from './RegisterForm'
 
-
+let divStyle = {
+  maxWidth: 300,
+  margin: '12px auto'
+}
 
 class RegisterPage extends Component {
 
@@ -28,8 +31,8 @@ class RegisterPage extends Component {
 
   render() {
     return (
-      <div>
-        <h2 style={{fontFamily: this.context.muiTheme.fontFamily}}>Form</h2>
+      <div style={divStyle}>
+        <h2 style={{fontFamily: this.context.muiTheme.fontFamily}}>Register a new user</h2>
         <RegisterForm onSubmit={this.handleSubmit}/>
         <Snackbar
           open={this.state.open}

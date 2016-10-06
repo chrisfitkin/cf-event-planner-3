@@ -14,6 +14,12 @@ import MenuItem from 'material-ui/MenuItem';
 import AddressAutoComplete from '../components/AddressAutoComplete'
 import PlaceAutoComplete from '../components/PlaceAutoComplete'
 
+
+let divStyle = {
+  maxWidth: 300,
+  margin: '12px auto'
+}
+
 /**
  * A basic vertical non-linear implementation
  */
@@ -71,7 +77,7 @@ class AddEventStepper extends React.Component {
   renderStepActions(step) {
     let maxSteps = 3
     return (
-      <div style={{margin: '12px 0'}}>
+      <div style={{margin: '12px auto'}}>
         {step < maxSteps-1 && (
           <RaisedButton
             label="Next"
@@ -135,7 +141,7 @@ class AddEventStepper extends React.Component {
     const eventTypeOptions = ["Birthday Party", "Conference", "Wedding", "Dinner", "Meet Up", "Work Meeting", "Drinks", "Baseball Game"]
 
     return (
-      <div style={{margin: 'auto'}}>
+      <div style={divStyle}>
         <form onSubmit={e => {
           e.preventDefault()
           console.log(title)
