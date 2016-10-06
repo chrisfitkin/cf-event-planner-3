@@ -69,7 +69,8 @@ export default class AddressAutoComplete extends Component {
         autoComplete={this.props.autoComplete}
         value={this.state.value}
         onChange={this._handleChange}
-        // onBlur={this.props.onBlur(this.state.value)} // this is causing an infinite loop :()
+        // onBlur={this.props.onBlur(this.state.value)} // this is causing an infinite loop :(
+        onBlur={console.log(this.state.value)} // this is triggering after every change
         placeholder=''
       />
     )
