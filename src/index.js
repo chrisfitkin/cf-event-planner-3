@@ -40,6 +40,7 @@ render(
           <IndexRoute component={EventListPage}/>
           <Route path="events" component={EventListPage}/>
           <Route path="create" component={AddEventStepper}/>
+          <Route path="register" component={RegisterFormContainer}/>
         </Route>
       </Router>
     </div>
@@ -82,6 +83,7 @@ let defaultEvents = [{
     message: '',
     inviteList: ''
   }]
+
 store.dispatch(addEvent(defaultEvents[0]));
 store.dispatch(addEvent(defaultEvents[1]));
 store.dispatch(addEvent(defaultEvents[2]));

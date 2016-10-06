@@ -5,6 +5,7 @@ import visibilityFilter from './visibilityFilter'
 
 const todoApp = combineReducers({
   todos,
+  register,
   events,
   visibilityFilter
 })
