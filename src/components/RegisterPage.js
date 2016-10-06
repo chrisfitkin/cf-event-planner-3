@@ -13,7 +13,7 @@ const showResults = values =>
 
 const RegisterPage = (props) => {
 
-  const RegisterForm = require('./RegisterForm').default
+  const RegisterForm = require('./Form').default
   return(
         <div>
 

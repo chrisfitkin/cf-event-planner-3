@@ -6,7 +6,7 @@ import { Provider } from 'react-redux'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 
-import * as reducers from './reducers'
+import reducer from './reducers/index'
 import App from './components/App'
 import EventListPage from './components/EventListPage'
 import AddEvent from './containers/AddEvent'
@@ -14,21 +14,33 @@ import AddEventStepper from './components/AddEventStepper'
 import RegisterFormContainer from './containers/RegisterFormContainer'
 import RegisterPage from './components/RegisterPage'
 
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin'
 
 import { addEvent } from './actions'
 
 import style from './styles/main.css'
 
-const reducer = combineReducers({
-  ...reducers,
+// console.log('reducers')
+// console.log(reducers)
+
+const combinedReducer = combineReducers({
+  ...reducer,
   routing: routerReducer
 })
+// console.log('reducer')
+// console.log(reducer)
+// const reducer = combineReducers({
+//   ...reducers,
+//   routing: routerReducer
+// })
+
+// const reducer = Object.assign({...reducers}, {routing: routerReducer});
 
 // const store = createStore(reducer)
-const store = createStore(reducer, window.devToolsExtension && window.devToolsExtension());
+const store = createStore(combinedReducer, window.devToolsExtension && window.devToolsExtension());
 
-const history = syncHistoryWithStore(browserHistory, store)
+// const history = syncHistoryWithStore(browserHistory, store)
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
@@ -37,18 +49,24 @@ injectTapEventPlugin();
 render(
   <Provider store={store}>
     <div>
-      <Router history={history}>
-        <Route path="/" component={App}>
-          <IndexRoute component={EventListPage}/>
-          <Route path="events" component={EventListPage}/>
-          <Route path="create" component={AddEventStepper}/>
-          <Route path="register" component={RegisterPage}/>
-        </Route>
-      </Router>
+      <MuiThemeProvider>
+        <RegisterPage />
+      </MuiThemeProvider>
     </div>
   </Provider>,
   document.getElementById('root')
 )
+/*
+
+  <Router history={history}>
+    <Route path="/" component={App}>
+      <IndexRoute component={EventListPage}/>
+      <Route path="events" component={EventListPage}/>
+      <Route path="create" component={AddEventStepper}/>
+      <Route path="register" component={RegisterPage}/>
+    </Route>
+  </Router>
+  */
 
 // Add some default event items (probably find a better place to do this)
 let defaultEvents = [{
