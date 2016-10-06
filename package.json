@@ -4,6 +4,7 @@
   "private": true,
   "devDependencies": {
     "enzyme": "^2.4.1",
+    "raw-loader": "^0.5.1",
     "react-addons-test-utils": "^15.3.0",
     "react-scripts": "^0.6.0"
   },

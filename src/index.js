@@ -11,6 +11,7 @@ import App from './components/App'
 import EventListPage from './components/EventListPage'
 import AddEvent from './containers/AddEvent'
 import AddEventStepper from './components/AddEventStepper'
+import RegisterFormContainer from './containers/RegisterFormContainer'
 
 import injectTapEventPlugin from 'react-tap-event-plugin'
 

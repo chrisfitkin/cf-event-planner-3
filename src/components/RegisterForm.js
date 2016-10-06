@@ -52,10 +52,10 @@ class Form extends Component {
           <Field name="email" component={TextField} hintText="joe@greatdomain.io" floatingLabelText="Email"/>
         </div>
         <div>
-          <Field name="password1" component={password} hintText="" floatingLabelText="Password"/>
+          <Field name="password1" component={TextField} type="password" hintText="" floatingLabelText="Password"/>
         </div>
         <div>
-          <Field name="password2" component={password} hintText="" floatingLabelText="Confirm Password"/>
+          <Field name="password2" component={TextField} type="password" hintText="" floatingLabelText="Confirm Password"/>
         </div>
         <div>
           <Field

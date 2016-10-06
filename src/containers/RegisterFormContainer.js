@@ -32,7 +32,7 @@ const showResults = values =>
 let render = () => {
   const Form = require('../components/RegisterForm').default
   // const readme = require('./Example.md')
-  const raw = require('!!raw!./RegisterForm')
+  const raw = require('!!raw!../components/RegisterForm')
   return (
         <div>
 
@@ -47,7 +47,6 @@ let render = () => {
           <h4>RegisterForm.js</h4>
 
           <Code source={raw}/>
-    </Provider>,
-    dest
+        </div>
   )
 }
