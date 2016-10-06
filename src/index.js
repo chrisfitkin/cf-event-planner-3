@@ -12,6 +12,7 @@ import EventListPage from './components/EventListPage'
 import AddEvent from './containers/AddEvent'
 import AddEventStepper from './components/AddEventStepper'
 import RegisterFormContainer from './containers/RegisterFormContainer'
+import RegisterPage from './components/RegisterPage'
 
 import injectTapEventPlugin from 'react-tap-event-plugin'
 
@@ -41,7 +42,7 @@ render(
           <IndexRoute component={EventListPage}/>
           <Route path="events" component={EventListPage}/>
           <Route path="create" component={AddEventStepper}/>
-          <Route path="register" component={RegisterFormContainer}/>
+          <Route path="register" component={RegisterPage}/>
         </Route>
       </Router>
     </div>
