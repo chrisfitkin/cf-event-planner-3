@@ -62,10 +62,10 @@ class RegisterForm extends Component {
       <form onSubmit={handleSubmit}>
         <div>
           <Field name="name" component={TextField} hintText="Chris Johnson" floatingLabelText="Name"
-            ref="name" withRef autoFocus/>
+            ref="name" withRef autoFocus autoComplete="name"/>
         </div>
         <div>
-          <Field name="email" component={TextField} hintText="joe@greatdomain.io" floatingLabelText="Email"/>
+          <Field name="email" component={TextField} hintText="joe@greatdomain.io" floatingLabelText="Email" autoComplete="email"/>
         </div>
         <div>
           <Field name="password1" component={TextField} type="password" hintText="" floatingLabelText="Password"/>
