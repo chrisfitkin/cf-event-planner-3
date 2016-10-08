@@ -48,7 +48,7 @@ const validate = values => {
   return errors
 }
 
-class RegisterForm extends Component {
+class AddEventForm extends Component {
   componentDidMount() {
     this.refs.name            // the Field
       .getRenderedComponent() // on Field, returns ReduxFormMaterialUITextField
@@ -93,10 +93,10 @@ class RegisterForm extends Component {
 }
 
 export default reduxForm({
-  form: 'registerForm',
+  form: 'addEventForm',
   fields: ['name', 'email'],
   initialValues: {
     // name: 'Chris Fitkin'
   },
   validate
-})(RegisterForm)
+})(AddEventForm)
