@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import RaisedButton from 'material-ui/RaisedButton';
+import RaisedButton from 'material-ui/RaisedButton'
+import FlatButton from 'material-ui/FlatButton'
 import { Field, reduxForm } from 'redux-form'
 import { RadioButton } from 'material-ui/RadioButton'
 import MenuItem from 'material-ui/MenuItem'
@@ -71,7 +72,6 @@ class RegisterForm extends Component {
           <Field name="password1" component={TextField} type="password" hintText="" floatingLabelText="Password"/>
         </div>
         <div>
-          <Field name="password2" component={TextField} type="password" hintText="" floatingLabelText="Confirm Password"/>
         </div>
         <div>
           <Field
@@ -89,7 +89,7 @@ class RegisterForm extends Component {
         <div>
           <RaisedButton type="submit" label="Register" disabled={pristine || submitting} primary={true} />
           {" "}
-          <RaisedButton label="Clear" disabled={pristine || submitting} onClick={reset} />
+          <FlatButton label="Clear" disabled={pristine || submitting} onClick={reset} />
         </div>
       </form>
     )
