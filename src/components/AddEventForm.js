@@ -80,7 +80,7 @@ class AddEventForm extends Component {
 
   constructor(props){
     super(props)
-    const { stepIndex } = props
+    const { stepIndex, handlePrev } = props
     console.log(stepIndex)
   }
 
@@ -144,6 +144,7 @@ class AddEventForm extends Component {
 
   renderStepActions(step) {
     const {maxSteps} = this.state;
+    const { addEventStepPrev, handlePrev } = this.props;
     return (
       <div style={{margin: '12px auto'}}>
         {step < maxSteps-1 && (
@@ -166,7 +167,7 @@ class AddEventForm extends Component {
         {step > 0 && (
           <FlatButton
             label="Back"
-            onTouchTap={this.handlePrev}
+            onTouchTap={handlePrev}
           />
         )}
       </div>

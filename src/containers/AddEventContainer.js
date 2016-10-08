@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { addEvent, addEventStepNext } from '../actions'
+import { addEvent, addEventStepNext, addEventStepPrev } from '../actions'
 import AddEventForm from '../components/AddEventForm'
 import { browserHistory } from 'react-router'
 
@@ -21,6 +21,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     dispatch(addEventStepNext(values))
     // dispatch(addEvent(values))
     // browserHistory.push('/')
+  },
+  handlePrev: () => {
+    dispatch(addEventStepPrev())
   },
   dispatch
 })
