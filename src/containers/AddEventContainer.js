@@ -1,13 +1,7 @@
 import { connect } from 'react-redux'
-import { toggleEvent } from '../actions'
+import { addEvent } from '../actions'
 import AddEventForm from '../components/AddEventForm'
-
-const handleSubmit = (props) => {
-  console.log(props)
-}
-const handleValidate = (props) => {
-  console.log(props)
-}
+import { browserHistory } from 'react-router'
 
 const mapStateToProps = (state) => {
   // console.log("------------")
@@ -15,12 +9,16 @@ const mapStateToProps = (state) => {
   // return ({
   //   events: getVisibleEvents(state.events, state.visibilityFilter)
   // })
-  return undefined
+  return {}
 }
 
-const mapDispatchToProps =  ({
-  handleSubmit,
-  handleValidate
+const mapDispatchToProps = (dispatch) => ({
+  handleAddEventSubmit: (props) => {
+    // console.log(props)
+    dispatch(addEvent(props))
+    browserHistory.push('/')
+  },
+  dispatch
 })
 
 const AddEventContainer = connect(

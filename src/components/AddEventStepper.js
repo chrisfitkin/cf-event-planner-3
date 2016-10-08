@@ -27,11 +27,11 @@ class AddEventStepper extends React.Component {
 
   constructor(props){
     super(props)
-    const maxSteps=3
   }
 
   state = {
     stepIndex: 0,
+    maxSteps: 3,
     title: '',
     host: '',
     eventType: '',
@@ -54,8 +54,7 @@ class AddEventStepper extends React.Component {
   }
 
   handleNext = () => {
-    let maxSteps = 3
-    const {stepIndex} = this.state;
+    const {stepIndex, maxSteps} = this.state;
     if (stepIndex < maxSteps) {
       this.setState({stepIndex: stepIndex + 1});
     }
@@ -68,14 +67,8 @@ class AddEventStepper extends React.Component {
     }
   };
 
-  handleSubmit = () => {
-    const { dispatch } = this.props;
-    dispatch(addEvent(this.state))
-    browserHistory.push('/')
-  }
-
   renderStepActions(step) {
-    let maxSteps = 3
+    const {maxSteps} = this.state;
     return (
       <div style={{margin: '12px auto'}}>
         {step < maxSteps-1 && (
