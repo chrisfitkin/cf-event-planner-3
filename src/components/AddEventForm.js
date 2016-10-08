@@ -22,6 +22,11 @@ import { Step, Stepper, StepButton, StepContent } from 'material-ui/Stepper'
 import SubmissionError from 'redux-form'
 
 const validate = values => {
+
+  // const { store } = this.context
+  // let state = store.getState()
+  // console.log(state)
+
   const errors = {}
   const requiredFields = [ 'title', 'eventType' ]
   requiredFields.forEach(field => {
@@ -76,6 +81,8 @@ const validate = values => {
 }
 
 
+// let AddEventForm = props => {
+// const { handleSubmit, load, pristine, reset, submitting } = props
 class AddEventForm extends Component {
 
   constructor(props){
@@ -96,12 +103,12 @@ class AddEventForm extends Component {
       .focus()                // on TextField
   }
 
-  handlePrev = () => {
-    const {stepIndex} = this.props;
-    if (stepIndex > 0) {
-      this.setState({stepIndex: stepIndex - 1});
-    }
-  };
+  // handlePrev = () => {
+  //   const {stepIndex} = this.props;
+  //   if (stepIndex > 0) {
+  //     this.setState({stepIndex: stepIndex - 1});
+  //   }
+  // };
 
   handleNext = () => {
 
@@ -144,7 +151,7 @@ class AddEventForm extends Component {
 
   renderStepActions(step) {
     const {maxSteps} = this.state;
-    const { addEventStepPrev, handlePrev } = this.props;
+    const { addEventStepPrev, handlePrev, stepIndex } = this.props;
     return (
       <div style={{margin: '12px auto'}}>
         {step < maxSteps-1 && (
@@ -162,6 +169,7 @@ class AddEventForm extends Component {
             label="Create Event"
             primary={true}
             style={{marginRight: 12}}
+            lastStep={maxSteps == stepIndex + 1}
           />
         )}
         {step > 0 && (
@@ -262,11 +270,13 @@ AddEventForm.contextTypes = {
   store: React.PropTypes.object
 }
 
-export default reduxForm({
+AddEventForm = reduxForm({
   form: 'addEventForm',
   fields: ['title', 'eventForm'],
   initialValues: {
     // name: 'Chris Fitkin'
   },
-  // validate
+  validate: validate
 })(AddEventForm)
+
+export default AddEventForm;
