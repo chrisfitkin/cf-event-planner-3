@@ -40,3 +40,13 @@ export const toggleTodo = (id) => ({
   type: 'TOGGLE_TODO',
   id
 })
+
+
+export const addEventStepNext = (values) => ({
+  type: 'ADD_EVENT_NEXT',
+  values
+})
+
+export const addEventStepPrev = () => ({
+  type: 'ADD_EVENT_PREV',
+})

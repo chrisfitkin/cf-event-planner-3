@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 import { Field, reduxForm } from 'redux-form'
 import { RadioButton } from 'material-ui/RadioButton'
 import MenuItem from 'material-ui/MenuItem'
@@ -18,10 +19,11 @@ import {
 import moment from 'moment';
 import { addEvent } from '../actions'
 import { Step, Stepper, StepButton, StepContent } from 'material-ui/Stepper'
+import SubmissionError from 'redux-form'
 
 const validate = values => {
   const errors = {}
-  const requiredFields = [ 'name', 'email', 'password1', 'password2' ]
+  const requiredFields = [ 'title', 'eventType' ]
   requiredFields.forEach(field => {
     if (!values[ field ]) {
       errors[ field ] = 'Required'
@@ -48,19 +50,43 @@ const validate = values => {
   // if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
   //   errors.email = 'Invalid email address'
   // }
+
+
+
+
+
+
+
+  // TODO:
+  // move the stepIndex variable to the container state
+  // handleSubmit on every step
+  // switch through the stepIndex in validation
+  // dispatch stepIndex++ increment on success
+  // return no errors ONLY if final step (fake error to allow stepping)
+
+
+
+
+
+
+
+
+
   return errors
 }
+
 
 class AddEventForm extends Component {
 
   constructor(props){
     super(props)
-    // const maxSteps=3
+    const { stepIndex } = props
+    console.log(stepIndex)
   }
 
   state = {
-    stepIndex: 0,
-    maxSteps: 3,
+    // stepIndex: this.props.stepIndex,
+    maxSteps: 3
   }
 
   componentDidMount() {
@@ -70,11 +96,50 @@ class AddEventForm extends Component {
       .focus()                // on TextField
   }
 
-  handleNext = () => {
-    const {stepIndex, maxSteps} = this.state;
-    if (stepIndex < maxSteps) {
-      this.setState({stepIndex: stepIndex + 1});
+  handlePrev = () => {
+    const {stepIndex} = this.props;
+    if (stepIndex > 0) {
+      this.setState({stepIndex: stepIndex - 1});
     }
+  };
+
+  handleNext = () => {
+
+    const { store } = this.context
+    let state = store.getState()
+    let { values } = state.form.addEventForm
+    // console.log(values)
+    const {maxSteps} = this.state
+    const {stepIndex} = this.props
+    let nextStep = stepIndex + 1;
+
+    // Validate Step
+    const errors = {}
+    const requiredFields = [ 'title', 'eventType' ]
+    requiredFields.forEach(field => {
+      if (typeof values === 'undefined' || typeof values[ field ] === 'undefined' || !values[ field ]) {
+        errors[ field ] = 'Required'
+      }
+    })
+    if (Object.keys(errors).length > 0) {
+      // set errors manually if any found
+      // throw new SubmissionError(errors)
+      console.log(errors)
+      store.setState({
+        form: {
+          registerForm: {
+            syncErrors: errors,
+            submitFailed: true
+          }
+        }
+      })
+    } else if (stepIndex < maxSteps) {
+      // go to next step
+      this.setState({stepIndex: nextStep});
+    }
+
+
+
   };
 
   renderStepActions(step) {
@@ -84,8 +149,9 @@ class AddEventForm extends Component {
         {step < maxSteps-1 && (
           <RaisedButton
             label="Next"
+            type="submit"
             primary={true}
-            onTouchTap={this.handleNext}
+            // onTouchTap={this.handleNext}
             style={{marginRight: 12}}
           />
         )}
@@ -114,119 +180,92 @@ class AddEventForm extends Component {
   // }
 
   render() {
-    const { handleSubmit, pristine, reset, submitting, handleAddEventSubmit} = this.props
-    const {stepIndex, maxSteps} = this.state;
+    const { handleSubmit, pristine, reset, submitting, fields, handleAddEventSubmit, stepIndex} = this.props
+    const { maxSteps } = this.state;
     // let title, host, eventType, startDate, startTime, endDate, endTime, location, message, inviteList
     let today = new Date();
     let todayFormatted = moment(today).format('MM/DD/YYYY');
     const eventTypeOptions = ["Birthday Party", "Conference", "Wedding", "Dinner", "Meet Up", "Work Meeting", "Drinks", "Baseball Game"]
 
-    console.log(handleSubmit)
+    // console.log(handleSubmit)
     return (
-      <form onSubmit={handleSubmit(handleAddEventSubmit)}>
-        <Stepper
-          activeStep={stepIndex}
-          linear={false}
-          orientation="vertical"
-        >
+        <form onSubmit={handleSubmit(handleAddEventSubmit)}>
+          <Stepper
+            activeStep={stepIndex}
+            linear={true}
+            orientation="vertical"
+          >
+            <Step>
+              <StepButton onTouchTap={() => this.setState({stepIndex: 0})}>
+                About your event
+              </StepButton>
+              <StepContent>
+              <div>
+                <Field
+                  component={TextField}
+                  name="title"
+                  floatingLabelText="Name your event"
+                  hintText="My awesome party"
+                  autoComplete="title"
+                  autoFocus
+                  required
+                  ref="title"
+                  withRef
+                />
+              </div>
+              <div>
+                <Field
+                  component={AutoComplete}
+                  floatingLabelText="Type of event"
+                  hintText="Birthday, Meet Up, etc..."
+                  filter={AutoComplete.fuzzyFilter}
+                  openOnFocus={true}
+                  dataSource={eventTypeOptions}
+                  required
+                  ref="eventType"
+                  name="eventType"
+                />
+              </div>
+              <div>
+                {this.renderStepActions(0)}
+              </div>
+            </StepContent>
+          </Step>
           <Step>
             <StepButton onTouchTap={() => this.setState({stepIndex: 0})}>
-              About your event
+              When is the event
             </StepButton>
             <StepContent>
-            <div>
-              <Field
-                component={TextField}
-                name="title"
-                floatingLabelText="Name your event"
-                hintText="My awesome party"
-                autoComplete="title"
-                autoFocus
-                required
-                ref="title"
-                withRef
-              />
-            </div>
-            <div>
-              <Field
-                component={AutoComplete}
-                floatingLabelText="Type of event"
-                hintText="Birthday, Meet Up, etc..."
-                filter={AutoComplete.fuzzyFilter}
-                openOnFocus={true}
-                dataSource={eventTypeOptions}
-                required
-                ref="eventType"
-                name="eventType"
-              />
-            </div>
-            <div>
-              {this.renderStepActions(1)}
-            </div>
-          </StepContent>
-        </Step>
-        <Step>
-          <StepButton onTouchTap={() => this.setState({stepIndex: 0})}>
-            When is the event
-          </StepButton>
-          <StepContent>
-            <div>
-              {this.renderStepActions(2)}
-            </div>
-          </StepContent>
-        </Step>
-        <Step>
-          <StepButton onTouchTap={() => this.setState({stepIndex: 0})}>
-            Invite your friends
-          </StepButton>
-          <StepContent>
-            <div>
-              {this.renderStepActions(0)}
-            </div>
-          </StepContent>
-        </Step>
-      </Stepper>
-
-
-        {/*
-        searchText={this.state.eventType}
-        onUpdateInput={searchText => this.setState({eventType: searchText})}
-        onNewRequest={chosenRequest => this.setState({eventType: chosenRequest})}
-
-        <div>
-          <Field name="email" component={TextField} hintText="joe@greatdomain.io" floatingLabelText="Email" autoComplete="email"/>
-        </div>
-        <div>
-          <Field name="password1" component={TextField} type="password" hintText="" floatingLabelText="Password"/>
-        </div>
-        <div>
-          <Field name="password2" component={TextField} type="password" hintText="" floatingLabelText="Confirm Password"/>
-        </div>
-        <div>
-          <Field
-            name="about"
-            component={TextField}
-            hintText="My story started a long time ago, in a galaxy far far away..."
-            floatingLabelText="Tell us about you"
-            multiLine={true}
-            rows={2}/>
-        </div>
-        */}
-        <div>
-          <RaisedButton type="submit" label="Add Event" disabled={pristine || submitting} primary={true} />
-          {" "}
-          <RaisedButton label="Reset" disabled={pristine || submitting} onClick={reset} />
-        </div>
+              <div>
+                {this.renderStepActions(1)}
+              </div>
+            </StepContent>
+          </Step>
+          <Step>
+            <StepButton onTouchTap={() => this.setState({stepIndex: 0})}>
+              Invite your friends
+            </StepButton>
+            <StepContent>
+              <div>
+                {this.renderStepActions(2)}
+              </div>
+            </StepContent>
+          </Step>
+        </Stepper>
       </form>
+
     )
   }
+}
+AddEventForm.contextTypes = {
+  store: React.PropTypes.object
 }
 
 export default reduxForm({
   form: 'addEventForm',
-  fields: ['title'],
+  fields: ['title', 'eventForm'],
   initialValues: {
     // name: 'Chris Fitkin'
   },
-  validate
+  // validate
 })(AddEventForm)

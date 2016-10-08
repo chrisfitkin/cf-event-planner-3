@@ -46,7 +46,7 @@ render(
         <Route path="/" component={App}>
           <IndexRoute component={EventListPage}/>
           <Route path="events" component={EventListPage}/>
-          <Route path="create" component={AddEventContainer}/>
+          <Route path="create" component={AddEventContainer} />
           <Route path="register" component={RegisterPage}/>
         </Route>
       </Router>
