@@ -20,15 +20,18 @@ import moment from 'moment';
 import { addEvent } from '../actions'
 import { Step, Stepper, StepButton, StepContent } from 'material-ui/Stepper'
 import SubmissionError from 'redux-form'
+import AddressAutoComplete from '../components/AddressAutoComplete'
+import PlaceAutoComplete from '../components/PlaceAutoComplete'
+import GoogleAutoComplete from '../components/GoogleAutoComplete'
 
 const validate = values => {
 
   // const { store } = this.context
   // let state = store.getState()
-  // console.log(state)
+  console.log(values)
 
   const errors = {}
-  const requiredFields = [ 'title', 'eventType' ]
+  const requiredFields = [ 'title', 'eventType', 'host' ]
   requiredFields.forEach(field => {
     if (!values[ field ]) {
       errors[ field ] = 'Required'
@@ -88,12 +91,12 @@ class AddEventForm extends Component {
   constructor(props){
     super(props)
     const { stepIndex, handlePrev } = props
-    console.log(stepIndex)
+    // console.log(stepIndex)
   }
 
   state = {
     // stepIndex: this.props.stepIndex,
-    maxSteps: 3
+    maxSteps: 3,
   }
 
   componentDidMount() {
@@ -101,6 +104,7 @@ class AddEventForm extends Component {
       .getRenderedComponent() // on Field, returns ReduxFormMaterialUITextField
       .getRenderedComponent() // on ReduxFormMaterialUITextField, returns TextField
       .focus()                // on TextField
+
   }
 
   // handlePrev = () => {
@@ -110,44 +114,44 @@ class AddEventForm extends Component {
   //   }
   // };
 
-  handleNext = () => {
-
-    const { store } = this.context
-    let state = store.getState()
-    let { values } = state.form.addEventForm
-    // console.log(values)
-    const {maxSteps} = this.state
-    const {stepIndex} = this.props
-    let nextStep = stepIndex + 1;
-
-    // Validate Step
-    const errors = {}
-    const requiredFields = [ 'title', 'eventType' ]
-    requiredFields.forEach(field => {
-      if (typeof values === 'undefined' || typeof values[ field ] === 'undefined' || !values[ field ]) {
-        errors[ field ] = 'Required'
-      }
-    })
-    if (Object.keys(errors).length > 0) {
-      // set errors manually if any found
-      // throw new SubmissionError(errors)
-      console.log(errors)
-      store.setState({
-        form: {
-          registerForm: {
-            syncErrors: errors,
-            submitFailed: true
-          }
-        }
-      })
-    } else if (stepIndex < maxSteps) {
-      // go to next step
-      this.setState({stepIndex: nextStep});
-    }
-
-
-
-  };
+  // handleNext = () => {
+  //
+  //   const { store } = this.context
+  //   let state = store.getState()
+  //   let { values } = state.form.addEventForm
+  //   // console.log(values)
+  //   const {maxSteps} = this.state
+  //   const {stepIndex} = this.props
+  //   let nextStep = stepIndex + 1;
+  //
+  //   // Validate Step
+  //   const errors = {}
+  //   const requiredFields = [ 'title', 'eventType' ]
+  //   requiredFields.forEach(field => {
+  //     if (typeof values === 'undefined' || typeof values[ field ] === 'undefined' || !values[ field ]) {
+  //       errors[ field ] = 'Required'
+  //     }
+  //   })
+  //   if (Object.keys(errors).length > 0) {
+  //     // set errors manually if any found
+  //     // throw new SubmissionError(errors)
+  //     // console.log(errors)
+  //     store.setState({
+  //       form: {
+  //         registerForm: {
+  //           syncErrors: errors,
+  //           submitFailed: true
+  //         }
+  //       }
+  //     })
+  //   } else if (stepIndex < maxSteps) {
+  //     // go to next step
+  //     this.setState({stepIndex: nextStep});
+  //   }
+  //
+  //
+  //
+  // };
 
   renderStepActions(step) {
     const {maxSteps} = this.state;
@@ -210,6 +214,7 @@ class AddEventForm extends Component {
               </StepButton>
               <StepContent>
               <div>
+                <Field component="input" type="hidden" name="stepIndex" ref="stepIndex" value={stepIndex} />
                 <Field
                   component={TextField}
                   name="title"
@@ -223,7 +228,7 @@ class AddEventForm extends Component {
                 />
               </div>
               <div>
-                <Field
+              <Field
                   component={AutoComplete}
                   floatingLabelText="Type of event"
                   hintText="Birthday, Meet Up, etc..."
@@ -235,6 +240,21 @@ class AddEventForm extends Component {
                   name="eventType"
                 />
               </div>
+
+              <div>
+              <Field
+                  component={GoogleAutoComplete}
+                  floatingLabelText="Host"
+                  hintText="Host"
+                  required
+                  ref="host"
+                  name="host"
+                />
+
+              </div>
+              <div>
+
+              </div>
               <div>
                 {this.renderStepActions(0)}
               </div>
@@ -245,6 +265,8 @@ class AddEventForm extends Component {
               When is the event
             </StepButton>
             <StepContent>
+              <div>
+              </div>
               <div>
                 {this.renderStepActions(1)}
               </div>
@@ -272,7 +294,7 @@ AddEventForm.contextTypes = {
 
 AddEventForm = reduxForm({
   form: 'addEventForm',
-  fields: ['title', 'eventForm'],
+  fields: ['stepIndex', 'title', 'eventType', 'host', 'startDate'],
   initialValues: {
     // name: 'Chris Fitkin'
   },

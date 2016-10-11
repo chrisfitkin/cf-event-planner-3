@@ -16,8 +16,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   handleAddEventSubmit: (values) => {
-    console.log(values)
-    console.log(ownProps)
+    // console.log(values)
+    // console.log(ownProps)
     dispatch(addEventStepNext(values))
     // dispatch(addEvent(values))
     // browserHistory.push('/')
