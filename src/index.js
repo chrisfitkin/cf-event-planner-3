@@ -13,6 +13,7 @@ import AddEvent from './containers/AddEvent'
 import AddEventStepper from './components/AddEventStepper'
 import RegisterFormContainer from './containers/RegisterFormContainer'
 import RegisterPage from './components/RegisterPage'
+import AddEventContainer from './containers/AddEventContainer'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin'
@@ -28,14 +29,6 @@ const combinedReducer = combineReducers({
   ...reducer,
   routing: routerReducer
 })
-// console.log('reducer')
-// console.log(reducer)
-// const reducer = combineReducers({
-//   ...reducers,
-//   routing: routerReducer
-// })
-
-// const reducer = Object.assign({...reducers}, {routing: routerReducer});
 
 // const store = createStore(reducer)
 const store = createStore(combinedReducer, window.devToolsExtension && window.devToolsExtension());
@@ -53,7 +46,7 @@ render(
         <Route path="/" component={App}>
           <IndexRoute component={EventListPage}/>
           <Route path="events" component={EventListPage}/>
-          <Route path="create" component={AddEventStepper}/>
+          <Route path="create" component={AddEventContainer} />
           <Route path="register" component={RegisterPage}/>
         </Route>
       </Router>

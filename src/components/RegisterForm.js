@@ -82,10 +82,6 @@ class RegisterForm extends Component {
             multiLine={true}
             rows={2}/>
         </div>
-        {/* <div>
-          <button type="submit" disabled={pristine || submitting}>Submit</button>
-          <button type="button" disabled={pristine || submitting} onClick={reset}>Clear</button>
-        </div> */}
         <div>
           <RaisedButton type="submit" label="Register" disabled={pristine || submitting} primary={true} />
           {" "}

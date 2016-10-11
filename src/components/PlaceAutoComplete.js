@@ -9,7 +9,7 @@ export default class AddressAutoComplete extends Component {
     autoComplete: PropTypes.string,
     value: PropTypes.string,
     onBlur: PropTypes.func,
-    onChange: PropTypes.func
+    // onChange: PropTypes.func
   }
 
   componentWillMount () {
@@ -48,26 +48,36 @@ export default class AddressAutoComplete extends Component {
       }
       // input.value = selectedPlace.name // Code injection risk (check doc)
       // input.value = `${selectedSuggest.street_number} ${selectedSuggest.route}`
-      input.value = `${selectedPlace.name}`
-      // this.setState({value: input.value})
+      let selectedPlaceName = `${selectedPlace.name}`
+      // input.value = selectedPlaceName // TODO: send this value to reduxform and allow it to pass back
+      console.log(selectedPlaceName)
+      this.setState({value: selectedPlaceName})
+      // this.setState(selectedPlaceName)
 
       //addressInput.value = `${selectedSuggest.street_number} ${selectedSuggest.route}`
-      if (typeof this.props.onChange === "function") {
-        this.props.onChange(selectedSuggest, input.value)
-      }
+      // if (typeof this.props.onChange === "function") {
+        // this.props.onChange(selectedSuggest, input.value)
+        this.props.onChange(selectedPlaceName)
+        // this._handleChange(null, selectedPlaceName)
+        console.log('pass to form')
+      // }
     })
   }
 
-  _handleChange = (event, value) => this.setState({ value })
+  _handleChange = (event, value) => {
+    this.setState({ value })
+    this.props.onChange(value)
+  }
 
   render () {
     return (
       <TextField
         id='placeAutocompleteField'
+        {...this.props}
         floatingLabelText={this.props.floatingLabelText}
         hintText={this.props.hintText}
         autoComplete={this.props.autoComplete}
-        value={this.state.value}
+        value={this.props.value}
         onChange={this._handleChange}
         // onBlur={this.props.onBlur(this.state.value)} // this is causing an infinite loop :(
         onBlur={console.log(this.state.value)} // this is triggering after every change
