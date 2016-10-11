@@ -31,7 +31,7 @@ const validate = values => {
   console.log(values)
 
   const errors = {}
-  const requiredFields = [ 'title', 'eventType', 'host' ]
+  const requiredFields = [ 'title', 'eventType', 'host', 'location' ]
   requiredFields.forEach(field => {
     if (!values[ field ]) {
       errors[ field ] = 'Required'
@@ -249,6 +249,14 @@ class AddEventForm extends Component {
                   required
                   ref="host"
                   name="host"
+                  onPlaceChanged={e => {
+                    console.log('inline onPlaceChanged')
+                    console.log(e)
+                    console.log(e.formatted_address)
+                    //this.props.fields.location.onChange(e.formatted_address)
+                    this.refs.location.getRenderedComponent().props.input.onChange(e.formatted_address)
+                    console.log(this)
+                  }}
                 />
               </div>
               <div>
@@ -259,8 +267,9 @@ class AddEventForm extends Component {
                   placesTypes={['geocode']}
                   addressPart="formatted_address"
                   required
-                  ref="location"
                   name="location"
+                  ref="location"
+                  withRef={true}
                 />
               </div>
               <div>
@@ -305,7 +314,7 @@ AddEventForm.contextTypes = {
 
 AddEventForm = reduxForm({
   form: 'addEventForm',
-  fields: ['stepIndex', 'title', 'eventType', 'host'],
+  fields: ['stepIndex', 'title', 'eventType', 'host', 'location'],
   initialValues: {
     // name: 'Chris Fitkin'
   },
