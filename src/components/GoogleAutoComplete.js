@@ -24,12 +24,13 @@ export default class GoogleAutoComplete extends React.Component {
       let place = this.autocomplete.getPlace()
       let placeName = place.name
       let placeAddress = place.vicinity
-      this.props.input.onChange(placeName)
       if (this.props.onPlaceChanged) {
           this.props.onPlaceChanged(placeName);
       }
-      // console.log(placeName)
+      // set the input text
       this._input.input.value=placeName
+      // send the value back to the form
+      this.props.input.onChange(placeName)
       console.log(this)
     }
 
@@ -37,10 +38,12 @@ export default class GoogleAutoComplete extends React.Component {
         return <TextField
         ref={(c) => this._input = c}
         floatingLabelText={this.props.floatingLabelText}
+        {...this.props}
+        {...this.props.input}
         hintText={this.props.hintText}
-        value={this.props.value}
-        name={this.props.name}
-        onChange={this.props.onChange}
+        value={this.props.input.value}
+        name={this.props.input.name}
+        onChange={this.props.input.onChange}
         placeholder=""
         />;
     }
