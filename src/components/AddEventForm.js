@@ -294,7 +294,7 @@ AddEventForm.contextTypes = {
 
 AddEventForm = reduxForm({
   form: 'addEventForm',
-  fields: ['stepIndex', 'title', 'eventType', 'host', 'startDate'],
+  fields: ['stepIndex', 'title', 'eventType', 'host'],
   initialValues: {
     // name: 'Chris Fitkin'
   },

@@ -13,6 +13,7 @@ export default class GoogleAutoComplete extends React.Component {
     componentDidMount() {
         this.autocomplete = new window.google.maps.places.Autocomplete(this._input.input, {types: ['establishment']});
         this.autocomplete.addListener('place_changed', this.handlePlaceChanged);
+        // console.log(this)
     }
 
     componentWillUnmount() {
@@ -23,20 +24,23 @@ export default class GoogleAutoComplete extends React.Component {
       let place = this.autocomplete.getPlace()
       let placeName = place.name
       let placeAddress = place.vicinity
-      console.log(placeName)
-      console.log(this.props)
       this.props.input.onChange(placeName)
       if (this.props.onPlaceChanged) {
           this.props.onPlaceChanged(placeName);
       }
+      // console.log(placeName)
+      this._input.input.value=placeName
+      console.log(this)
     }
 
     render() {
         return <TextField
         ref={(c) => this._input = c}
-        {...this.props}
+        floatingLabelText={this.props.floatingLabelText}
+        hintText={this.props.hintText}
         value={this.props.value}
         name={this.props.name}
+        onChange={this.props.onChange}
         placeholder=""
         />;
     }
@@ -44,6 +48,5 @@ export default class GoogleAutoComplete extends React.Component {
 
 GoogleAutoComplete.propTypes = {
     name: React.PropTypes.string.isRequired,
-    value: React.PropTypes.string.isRequired,
     onPlaceChanged: React.PropTypes.func
 };
