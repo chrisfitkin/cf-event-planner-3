@@ -23,7 +23,7 @@ export default class GoogleAutoComplete extends React.Component {
 
     handlePlaceChanged() {
       let place = this.autocomplete.getPlace()
-      console.log(place)
+      // console.log(place)
       let placeName = place[this.props.addressPart || 'name']
       let placeAddress = place.vicinity
       if (this.props.onPlaceChanged) {
@@ -33,7 +33,7 @@ export default class GoogleAutoComplete extends React.Component {
       this._input.input.value=placeName
       // send the value back to the form
       this.props.input.onChange(placeName)
-      console.log(this)
+      // console.log(this)
     }
 
     render() {

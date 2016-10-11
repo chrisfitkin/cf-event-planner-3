@@ -28,10 +28,10 @@ const validate = values => {
 
   // const { store } = this.context
   // let state = store.getState()
-  console.log(values)
+  // console.log(values)
 
   const errors = {}
-  const requiredFields = [ 'title', 'eventType', 'host', 'location' ]
+  const requiredFields = [ 'title', 'eventType', 'host', 'location', 'startDate' ]
   requiredFields.forEach(field => {
     if (!values[ field ]) {
       errors[ field ] = 'Required'
@@ -200,8 +200,8 @@ class AddEventForm extends Component {
     let todayFormatted = moment(today).format('MM/DD/YYYY');
     const eventTypeOptions = ["Birthday Party", "Conference", "Wedding", "Dinner", "Meet Up", "Work Meeting", "Drinks", "Baseball Game"]
 
-    console.log("---------- this ----------")
-    console.log(this)
+    // console.log("---------- this ----------")
+    // console.log(this)
 
     // console.log("---------- errors ----------")
     // console.log(errors)
@@ -258,12 +258,12 @@ class AddEventForm extends Component {
                   name="host"
                   errorText={(fields.host && fields.host.touched) ? errors.host : ''}
                   onPlaceChanged={e => {
-                    console.log('inline onPlaceChanged')
-                    console.log(e)
-                    console.log(e.formatted_address)
+                    // console.log('inline onPlaceChanged')
+                    // console.log(e)
+                    // console.log(e.formatted_address)
                     //this.props.fields.location.onChange(e.formatted_address)
                     this.refs.location.getRenderedComponent().props.input.onChange(e.formatted_address)
-                    console.log(this)
+                    // console.log(this)
                   }}
                 />
               </div>
@@ -295,6 +295,16 @@ class AddEventForm extends Component {
             </StepButton>
             <StepContent>
               <div>
+                <Field
+                  component={DatePicker}
+                  autoOk
+                  floatingLabelText="Starting day"
+                  locale="en-US"
+                  type="text"
+                  name='startDate'
+                  ref='startDate'
+                  hintText={todayFormatted}
+                />
               </div>
               <div>
                 {this.renderStepActions(1)}
