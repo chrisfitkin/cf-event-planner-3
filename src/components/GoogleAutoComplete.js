@@ -26,7 +26,7 @@ export default class GoogleAutoComplete extends React.Component {
       let placeName = place[this.props.addressPart || 'name']
       let placeAddress = place.vicinity
       if (this.props.onPlaceChanged) {
-          this.props.onPlaceChanged(placeName);
+          this.props.onPlaceChanged(place);
       }
       // set the input text
       this._input.input.value=placeName
