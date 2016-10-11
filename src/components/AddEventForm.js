@@ -193,12 +193,18 @@ class AddEventForm extends Component {
   // }
 
   render() {
-    const { handleSubmit, pristine, reset, submitting, fields, handleAddEventSubmit, stepIndex} = this.props
+    const { errors, handleSubmit, pristine, reset, submitting, fields, handleAddEventSubmit, stepIndex} = this.props
     const { maxSteps } = this.state;
     // let title, host, eventType, startDate, startTime, endDate, endTime, location, message, inviteList
     let today = new Date();
     let todayFormatted = moment(today).format('MM/DD/YYYY');
     const eventTypeOptions = ["Birthday Party", "Conference", "Wedding", "Dinner", "Meet Up", "Work Meeting", "Drinks", "Baseball Game"]
+
+    console.log("---------- this ----------")
+    console.log(this)
+
+    // console.log("---------- errors ----------")
+    // console.log(errors)
 
     // console.log(handleSubmit)
     return (
@@ -243,12 +249,14 @@ class AddEventForm extends Component {
               <div>
                 <Field
                   component={GoogleAutoComplete}
-                  floatingLabelText="Host"
-                  hintText="Host"
+                  hintText="Acme, Co. or John Smith"
+                  floatingLabelText="Hosted by"
+                  autoComplete="name"
                   placesTypes={['establishment']}
                   required
                   ref="host"
                   name="host"
+                  errorText={(fields.host && fields.host.touched) ? errors.host : ''}
                   onPlaceChanged={e => {
                     console.log('inline onPlaceChanged')
                     console.log(e)
@@ -268,6 +276,7 @@ class AddEventForm extends Component {
                   addressPart="formatted_address"
                   required
                   name="location"
+                  errorText={(fields.location && fields.location.touched) ? errors.location : ''}
                   ref="location"
                   withRef={true}
                 />

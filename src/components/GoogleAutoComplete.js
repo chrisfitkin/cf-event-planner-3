@@ -8,6 +8,7 @@ export default class GoogleAutoComplete extends React.Component {
 
         this.autocomplete = null;
         this.handlePlaceChanged = this.handlePlaceChanged.bind(this);
+
     }
 
     componentDidMount() {
