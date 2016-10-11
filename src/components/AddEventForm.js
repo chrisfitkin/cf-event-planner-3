@@ -228,7 +228,7 @@ class AddEventForm extends Component {
                 />
               </div>
               <div>
-              <Field
+                <Field
                   component={AutoComplete}
                   floatingLabelText="Type of event"
                   hintText="Birthday, Meet Up, etc..."
@@ -240,17 +240,28 @@ class AddEventForm extends Component {
                   name="eventType"
                 />
               </div>
-
               <div>
-              <Field
+                <Field
                   component={GoogleAutoComplete}
                   floatingLabelText="Host"
                   hintText="Host"
+                  placesTypes={['establishment']}
                   required
                   ref="host"
                   name="host"
                 />
-
+              </div>
+              <div>
+                <Field
+                  component={GoogleAutoComplete}
+                  floatingLabelText="Where is it"
+                  hintText="123 Main Street, Los Angeles, CA"
+                  placesTypes={['geocode']}
+                  addressPart="formatted_address"
+                  required
+                  ref="location"
+                  name="location"
+                />
               </div>
               <div>
 

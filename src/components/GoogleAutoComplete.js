@@ -11,7 +11,7 @@ export default class GoogleAutoComplete extends React.Component {
     }
 
     componentDidMount() {
-        this.autocomplete = new window.google.maps.places.Autocomplete(this._input.input, {types: ['establishment']});
+        this.autocomplete = new window.google.maps.places.Autocomplete(this._input.input, {types: this.props.placesTypes || ['establishment']});
         this.autocomplete.addListener('place_changed', this.handlePlaceChanged);
         // console.log(this)
     }
@@ -22,7 +22,8 @@ export default class GoogleAutoComplete extends React.Component {
 
     handlePlaceChanged() {
       let place = this.autocomplete.getPlace()
-      let placeName = place.name
+      console.log(place)
+      let placeName = place[this.props.addressPart || 'name']
       let placeAddress = place.vicinity
       if (this.props.onPlaceChanged) {
           this.props.onPlaceChanged(placeName);
