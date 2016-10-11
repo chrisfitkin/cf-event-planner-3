@@ -31,7 +31,7 @@ const validate = values => {
   console.log(values)
 
   const errors = {}
-  const requiredFields = [ 'title', 'eventType', 'host' ]
+  const requiredFields = [ 'title', 'eventType', 'host', 'location' ]
   requiredFields.forEach(field => {
     if (!values[ field ]) {
       errors[ field ] = 'Required'
