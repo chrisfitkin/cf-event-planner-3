@@ -2,20 +2,7 @@ import React, { Component } from 'react'
 import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
 import { Field, reduxForm } from 'redux-form'
-import { RadioButton } from 'material-ui/RadioButton'
-import MenuItem from 'material-ui/MenuItem'
-import { AutoComplete as MUIAutoComplete } from 'material-ui'
-import {
-  AutoComplete,
-  Checkbox,
-  DatePicker,
-  TimePicker,
-  RadioButtonGroup,
-  SelectField,
-  Slider,
-  TextField,
-  Toggle,
-} from 'redux-form-material-ui'
+import { TextField } from 'redux-form-material-ui'
 
 const validate = values => {
   const errors = {}
@@ -40,7 +27,7 @@ const validate = values => {
   if (values.password2 && values.password2.length < 8) {
     errors.password2 = 'At least 8 characters'
   }
-  if (values.password1 && values.password2 && values.password1 != values.password2) {
+  if (values.password1 && values.password2 && values.password1 !== values.password2) {
     errors.password2 = 'Passwords do not match'
   }
   if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
@@ -55,10 +42,11 @@ class RegisterForm extends Component {
       .getRenderedComponent() // on Field, returns ReduxFormMaterialUITextField
       .getRenderedComponent() // on ReduxFormMaterialUITextField, returns TextField
       .focus()                // on TextField
+    // this.refs.name.getRenderedComponent().getRenderedComponent().focus()
   }
 
   render() {
-    const { handleSubmit, pristine, reset, submitting, fields: {name, email}} = this.props
+    const { handleSubmit, pristine, reset, submitting } = this.props
     return (
       <form onSubmit={handleSubmit}>
         <div>

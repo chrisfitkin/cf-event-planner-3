@@ -1,11 +1,9 @@
 import React from 'react'
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
-import Menu from 'material-ui/Menu'
 import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import NavigationClose from 'material-ui/svg-icons/navigation/close';
-import { IndexLink, Link, FontIcon } from 'react-router'
+import { IndexLink, Link } from 'react-router'
 
 // import './Navigation.scss'
 
@@ -26,11 +24,11 @@ export const Navigation = () => (
         primaryText="Events"
       />
       <MenuItem
-        containerElement={<IndexLink to="/create" activeClassName='route--active' />}
+        containerElement={<Link to="/create" activeClassName='route--active' />}
         primaryText="Create Event"
       />
       <MenuItem
-        containerElement={<IndexLink to="/register" activeClassName='route--active' />}
+        containerElement={<Link to="/register" activeClassName='route--active' />}
         primaryText="Register"
       />
   </IconMenu>

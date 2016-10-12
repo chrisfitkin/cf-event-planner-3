@@ -9,13 +9,9 @@ import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 import reducer from './reducers/index'
 import App from './components/App'
 import EventListPage from './components/EventListPage'
-import AddEvent from './containers/AddEvent'
-import AddEventStepper from './components/AddEventStepper'
-import RegisterFormContainer from './containers/RegisterFormContainer'
 import RegisterPage from './components/RegisterPage'
 import AddEventContainer from './containers/AddEventContainer'
 
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin'
 
 import { addEvent } from './actions'
