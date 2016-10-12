@@ -106,6 +106,7 @@ class AddEventForm extends Component {
 
     // console.log(handleSubmit)
     return (
+      <div style={{margin: '12px auto', maxWidth: 300}}>
         <form onSubmit={stepIndex===maxSteps-1 ? handleSubmit(handleAddEventSubmitFinal) : handleSubmit(handleAddEventSubmit)}>
           <Stepper
             activeStep={stepIndex}
@@ -273,7 +274,7 @@ class AddEventForm extends Component {
           </Step>
         </Stepper>
       </form>
-
+    </div>
     )
   }
 }

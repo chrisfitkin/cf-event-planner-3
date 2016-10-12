@@ -48,34 +48,36 @@ class RegisterForm extends Component {
   render() {
     const { handleSubmit, pristine, reset, submitting } = this.props
     return (
-      <form onSubmit={handleSubmit}>
-        <div>
-          <Field name="name" component={TextField} hintText="Chris Johnson" floatingLabelText="Name"
-            ref="name" withRef autoFocus autoComplete="name"/>
-        </div>
-        <div>
-          <Field name="email" component={TextField} hintText="joe@greatdomain.io" floatingLabelText="Email" autoComplete="email"/>
-        </div>
-        <div>
-          <Field name="password1" component={TextField} type="password" hintText="" floatingLabelText="Password"/>
-        </div>
-        <div>
-        </div>
-        <div>
-          <Field
-            name="about"
-            component={TextField}
-            hintText="My story started a long time ago, in a galaxy far far away..."
-            floatingLabelText="Tell us about you"
-            multiLine={true}
-            rows={2}/>
-        </div>
-        <div>
-          <RaisedButton type="submit" label="Register" disabled={pristine || submitting} primary={true} />
-          {" "}
-          <FlatButton label="Clear" disabled={pristine || submitting} onClick={reset} />
-        </div>
-      </form>
+      <div style={{padding: '0 20px 0 20px'}}>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <Field name="name" component={TextField} hintText="Chris Johnson" floatingLabelText="Name"
+              ref="name" withRef autoFocus autoComplete="name"/>
+          </div>
+          <div>
+            <Field name="email" component={TextField} hintText="joe@greatdomain.io" floatingLabelText="Email" autoComplete="email"/>
+          </div>
+          <div>
+            <Field name="password1" component={TextField} type="password" hintText="" floatingLabelText="Password"/>
+          </div>
+          <div>
+          </div>
+          <div>
+            <Field
+              name="about"
+              component={TextField}
+              hintText="My story started a long time ago, in a galaxy far far away..."
+              floatingLabelText="Tell us about you"
+              multiLine={true}
+              rows={2}/>
+          </div>
+          <div>
+            <RaisedButton type="submit" label="Register" disabled={pristine || submitting} primary={true} />
+            {" "}
+            <FlatButton label="Clear" disabled={pristine || submitting} onClick={reset} />
+          </div>
+        </form>
+      </div>
     )
   }
 }
