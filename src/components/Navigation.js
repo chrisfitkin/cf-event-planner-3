@@ -26,11 +26,11 @@ export const Navigation = () => (
         primaryText="Events"
       />
       <MenuItem
-        containerElement={<IndexLink to="/create" activeClassName='route--active' />}
+        containerElement={<Link to="/create" activeClassName='route--active' />}
         primaryText="Create Event"
       />
       <MenuItem
-        containerElement={<IndexLink to="/register" activeClassName='route--active' />}
+        containerElement={<Link to="/register" activeClassName='route--active' />}
         primaryText="Register"
       />
   </IconMenu>

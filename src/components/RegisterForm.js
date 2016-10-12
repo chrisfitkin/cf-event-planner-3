@@ -51,10 +51,12 @@ const validate = values => {
 
 class RegisterForm extends Component {
   componentDidMount() {
-    this.refs.name            // the Field
-      .getRenderedComponent() // on Field, returns ReduxFormMaterialUITextField
-      .getRenderedComponent() // on ReduxFormMaterialUITextField, returns TextField
-      .focus()                // on TextField
+    // this.refs.name            // the Field
+    //   .getRenderedComponent() // on Field, returns ReduxFormMaterialUITextField
+    //   .getRenderedComponent() // on ReduxFormMaterialUITextField, returns TextField
+    //   .focus()                // on TextField
+    console.log(this.refs.name)
+    this.refs.name.getRenderedComponent().getRenderedComponent().focus()
   }
 
   render() {

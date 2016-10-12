@@ -50,3 +50,8 @@ export const addEventStepNext = (values) => ({
 export const addEventStepPrev = () => ({
   type: 'ADD_EVENT_PREV',
 })
+
+
+export const addEventStepReset = () => ({
+  type: 'ADD_EVENT_RESET',
+})

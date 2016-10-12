@@ -31,7 +31,7 @@ const validate = values => {
   // console.log(values)
 
   const errors = {}
-  const requiredFields = [ 'title', 'eventType', 'host', 'location', 'startDate' ]
+  const requiredFields = [ 'title', 'eventType', 'host', 'location', 'startDate', 'startTime', 'endDate', 'endTime' ]
   requiredFields.forEach(field => {
     if (!values[ field ]) {
       errors[ field ] = 'Required'
@@ -43,43 +43,6 @@ const validate = values => {
   // if (values.password1 && !values.password1.match(/[a-zA-Z]/) ) {
   //   errors.password1 = 'Must contain a letter'
   // }
-  // if (values.password1 && !values.password1.match(/[0-9]/) ) {
-  //   errors.password1 = 'Must contain a number'
-  // }
-  // if (values.password1 && values.password1.length < 8) {
-  //   errors.password1 = 'At least 8 characters required'
-  // }
-  // if (values.password2 && values.password2.length < 8) {
-  //   errors.password2 = 'At least 8 characters'
-  // }
-  // if (values.password1 && values.password2 && values.password1 != values.password2) {
-  //   errors.password2 = 'Passwords do not match'
-  // }
-  // if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-  //   errors.email = 'Invalid email address'
-  // }
-
-
-
-
-
-
-
-  // TODO:
-  // move the stepIndex variable to the container state
-  // handleSubmit on every step
-  // switch through the stepIndex in validation
-  // dispatch stepIndex++ increment on success
-  // return no errors ONLY if final step (fake error to allow stepping)
-
-
-
-
-
-
-
-
-
   return errors
 }
 
@@ -100,58 +63,16 @@ class AddEventForm extends Component {
   }
 
   componentDidMount() {
-    this.refs.title            // the Field
-      .getRenderedComponent() // on Field, returns ReduxFormMaterialUITextField
-      .getRenderedComponent() // on ReduxFormMaterialUITextField, returns TextField
-      .focus()                // on TextField
-
+    const { stepIndex, addEventStepReset } = this.props
+    if (stepIndex > 0 ) addEventStepReset()
+    if (this.refs.title) {
+      // this.refs.title            // the Field
+      // .getRenderedComponent() // on Field, returns ReduxFormMaterialUITextField
+      // .getRenderedComponent() // on ReduxFormMaterialUITextField, returns TextField
+      // .focus()                // on TextField
+      // console.log('setting focus')
+    }
   }
-
-  // handlePrev = () => {
-  //   const {stepIndex} = this.props;
-  //   if (stepIndex > 0) {
-  //     this.setState({stepIndex: stepIndex - 1});
-  //   }
-  // };
-
-  // handleNext = () => {
-  //
-  //   const { store } = this.context
-  //   let state = store.getState()
-  //   let { values } = state.form.addEventForm
-  //   // console.log(values)
-  //   const {maxSteps} = this.state
-  //   const {stepIndex} = this.props
-  //   let nextStep = stepIndex + 1;
-  //
-  //   // Validate Step
-  //   const errors = {}
-  //   const requiredFields = [ 'title', 'eventType' ]
-  //   requiredFields.forEach(field => {
-  //     if (typeof values === 'undefined' || typeof values[ field ] === 'undefined' || !values[ field ]) {
-  //       errors[ field ] = 'Required'
-  //     }
-  //   })
-  //   if (Object.keys(errors).length > 0) {
-  //     // set errors manually if any found
-  //     // throw new SubmissionError(errors)
-  //     // console.log(errors)
-  //     store.setState({
-  //       form: {
-  //         registerForm: {
-  //           syncErrors: errors,
-  //           submitFailed: true
-  //         }
-  //       }
-  //     })
-  //   } else if (stepIndex < maxSteps) {
-  //     // go to next step
-  //     this.setState({stepIndex: nextStep});
-  //   }
-  //
-  //
-  //
-  // };
 
   renderStepActions(step) {
     const {maxSteps} = this.state;
@@ -186,14 +107,8 @@ class AddEventForm extends Component {
     );
   }
 
-  // handleSubmit = () => {
-  //   const { dispatch } = this.props;
-  //   dispatch(addEvent(this.state))
-  //   browserHistory.push('/')
-  // }
-
   render() {
-    const { errors, handleSubmit, pristine, reset, submitting, fields, handleAddEventSubmit, stepIndex} = this.props
+    const { errors, handleSubmit, pristine, reset, submitting, fields, handleAddEventSubmit, handleAddEventSubmitFinal, stepIndex} = this.props
     const { maxSteps } = this.state;
     // let title, host, eventType, startDate, startTime, endDate, endTime, location, message, inviteList
     let today = new Date();
@@ -208,7 +123,7 @@ class AddEventForm extends Component {
 
     // console.log(handleSubmit)
     return (
-        <form onSubmit={handleSubmit(handleAddEventSubmit)}>
+        <form onSubmit={stepIndex==maxSteps-1 ? handleSubmit(handleAddEventSubmitFinal) : handleSubmit(handleAddEventSubmit)}>
           <Stepper
             activeStep={stepIndex}
             linear={true}
@@ -255,6 +170,7 @@ class AddEventForm extends Component {
                   placesTypes={['establishment']}
                   required
                   ref="host"
+                  withRef={true}
                   name="host"
                   errorText={(fields.host && fields.host.touched) ? errors.host : ''}
                   onPlaceChanged={e => {
@@ -282,9 +198,6 @@ class AddEventForm extends Component {
                 />
               </div>
               <div>
-
-              </div>
-              <div>
                 {this.renderStepActions(0)}
               </div>
             </StepContent>
@@ -307,6 +220,38 @@ class AddEventForm extends Component {
                 />
               </div>
               <div>
+                <Field
+                  component={TimePicker}
+                  hintText="12hr Format"
+                  autoOk
+                  floatingLabelText="Starting time"
+                  name="startTime"
+                  ref="startTime"
+                />
+              </div>
+              <div>
+                <Field
+                  component={DatePicker}
+                  autoOk
+                  floatingLabelText="Ending day"
+                  locale="en-US"
+                  type="text"
+                  name='endDate'
+                  ref='endDate'
+                  hintText={todayFormatted}
+                />
+              </div>
+              <div>
+                <Field
+                  component={TimePicker}
+                  hintText="12hr Format"
+                  autoOk
+                  name="endTime"
+                  ref="endTime"
+                  floatingLabelText="Ending time"
+                />
+              </div>
+              <div>
                 {this.renderStepActions(1)}
               </div>
             </StepContent>
@@ -316,6 +261,28 @@ class AddEventForm extends Component {
               Invite your friends
             </StepButton>
             <StepContent>
+              <div>
+                <Field
+                  component={TextField}
+                  floatingLabelText="List of emails to invite"
+                  hintText="chris@coolcompany.com, mike@awesome.com, kim@yahoo.com"
+                  multiLine={true}
+                  rows={3}
+                  name="inviteList"
+                  ref="inviteList"
+                />
+              </div>
+              <div>
+                <Field
+                  component={TextField}
+                  floatingLabelText="Add a message"
+                  hintText="Hi friends! Come join me at my cool new event :)"
+                  multiLine={true}
+                  rows={2}
+                  name="message"
+                  ref="message"
+                />
+              </div>
               <div>
                 {this.renderStepActions(2)}
               </div>
