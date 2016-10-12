@@ -2,26 +2,14 @@ import React, { Component } from 'react'
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import { Field, reduxForm } from 'redux-form'
-import { RadioButton } from 'material-ui/RadioButton'
-import MenuItem from 'material-ui/MenuItem'
-import { AutoComplete as MUIAutoComplete } from 'material-ui'
 import {
   AutoComplete,
-  Checkbox,
   DatePicker,
   TimePicker,
-  RadioButtonGroup,
-  SelectField,
-  Slider,
   TextField,
-  Toggle,
 } from 'redux-form-material-ui'
 import moment from 'moment';
-import { addEvent } from '../actions'
 import { Step, Stepper, StepButton, StepContent } from 'material-ui/Stepper'
-import SubmissionError from 'redux-form'
-import AddressAutoComplete from '../components/AddressAutoComplete'
-import PlaceAutoComplete from '../components/PlaceAutoComplete'
 import GoogleAutoComplete from '../components/GoogleAutoComplete'
 
 const validate = values => {
@@ -51,12 +39,6 @@ const validate = values => {
 // const { handleSubmit, load, pristine, reset, submitting } = props
 class AddEventForm extends Component {
 
-  constructor(props){
-    super(props)
-    const { stepIndex, handlePrev } = props
-    // console.log(stepIndex)
-  }
-
   state = {
     // stepIndex: this.props.stepIndex,
     maxSteps: 3,
@@ -76,7 +58,7 @@ class AddEventForm extends Component {
 
   renderStepActions(step) {
     const {maxSteps} = this.state;
-    const { addEventStepPrev, handlePrev, stepIndex } = this.props;
+    const { handlePrev, stepIndex } = this.props;
     return (
       <div style={{margin: '12px auto'}}>
         {step < maxSteps-1 && (
@@ -94,7 +76,7 @@ class AddEventForm extends Component {
             label="Create Event"
             primary={true}
             style={{marginRight: 12}}
-            lastStep={maxSteps == stepIndex + 1}
+            lastStep={maxSteps === stepIndex + 1}
           />
         )}
         {step > 0 && (
@@ -108,7 +90,8 @@ class AddEventForm extends Component {
   }
 
   render() {
-    const { errors, handleSubmit, pristine, reset, submitting, fields, handleAddEventSubmit, handleAddEventSubmitFinal, stepIndex} = this.props
+    const { errors, handleSubmit, fields, handleAddEventSubmit, handleAddEventSubmitFinal, stepIndex} = this.props
+    // const { errors, handleSubmit, pristine, reset, submitting, fields, handleAddEventSubmit, handleAddEventSubmitFinal, stepIndex} = this.props
     const { maxSteps } = this.state;
     // let title, host, eventType, startDate, startTime, endDate, endTime, location, message, inviteList
     let today = new Date();
@@ -123,7 +106,7 @@ class AddEventForm extends Component {
 
     // console.log(handleSubmit)
     return (
-        <form onSubmit={stepIndex==maxSteps-1 ? handleSubmit(handleAddEventSubmitFinal) : handleSubmit(handleAddEventSubmit)}>
+        <form onSubmit={stepIndex===maxSteps-1 ? handleSubmit(handleAddEventSubmitFinal) : handleSubmit(handleAddEventSubmit)}>
           <Stepper
             activeStep={stepIndex}
             linear={true}

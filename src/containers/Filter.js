@@ -1,13 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { setVisibilityFilter } from '../actions'
-import FilterLink from '../containers/FilterLink'
-import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
-import IconButton from 'material-ui/IconButton';
-import FlatButton from 'material-ui/FlatButton';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import ContentFilter from 'material-ui/svg-icons/content/filter-list';
 import DropDownMenu from 'material-ui/DropDownMenu';
 
 class Filter extends React.Component {
@@ -37,7 +31,6 @@ class Filter extends React.Component {
   };
 
   render() {
-    let filterText = "All Events"
     return(
       <div>
         <DropDownMenu

@@ -9,8 +9,6 @@ import DatePicker from 'material-ui/DatePicker'
 import TimePicker from 'material-ui/TimePicker'
 import AutoComplete from 'material-ui/AutoComplete'
 import MenuItem from 'material-ui/MenuItem';
-import AddressAutoComplete from '../components/AddressAutoComplete'
-import PlaceAutoComplete from '../components/PlaceAutoComplete'
 
 const onHostChange = (address, target) => {
   target.setState({value: `${address.street_number} ${address.route}`})
