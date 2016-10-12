@@ -1,5 +1,4 @@
 import React from 'react'
-import EventListPage from './EventListPage'
 import Header from './Header'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
