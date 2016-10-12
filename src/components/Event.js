@@ -1,22 +1,19 @@
 import React, { PropTypes } from 'react'
 
 
-import {List, ListItem} from 'material-ui/List';
+import {ListItem} from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
 import EventIcon from 'material-ui/svg-icons/action/event';
-import ActionAssignment from 'material-ui/svg-icons/action/assignment';
-import {blue500, yellow600} from 'material-ui/styles/colors';
-import EditorInsertChart from 'material-ui/svg-icons/editor/insert-chart';
 import Divider from 'material-ui/Divider';
-import {pink50, pinkA200, darkBlack, transparent} from 'material-ui/styles/colors';
+import {pink50, pinkA200, darkBlack } from 'material-ui/styles/colors';
 import ActionGrade from 'material-ui/svg-icons/action/grade';
 import moment from 'moment'
 
 // { favorite ? '<b>favorite</b>' : '' }
 
 const Event = (props) => {
-  const { onClick, favorite, title, host, eventType, startDate, startTime,
-    endDate, endTime, location, message, inviteList } = props
+  const { onClick, favorite, title, host, eventType, startDate, startTime } = props
+    // endDate, endTime, location, message, inviteList } = props
   let separator = "  --  "
   return (
     <div>

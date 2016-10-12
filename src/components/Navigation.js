@@ -1,11 +1,9 @@
 import React from 'react'
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
-import Menu from 'material-ui/Menu'
 import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import NavigationClose from 'material-ui/svg-icons/navigation/close';
-import { IndexLink, Link, FontIcon } from 'react-router'
+import { IndexLink, Link } from 'react-router'
 
 // import './Navigation.scss'
 

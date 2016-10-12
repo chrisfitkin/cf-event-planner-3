@@ -25,7 +25,7 @@ export default class GoogleAutoComplete extends React.Component {
       let place = this.autocomplete.getPlace()
       // console.log(place)
       let placeName = place[this.props.addressPart || 'name']
-      let placeAddress = place.vicinity
+      // let placeAddress = place.vicinity
       if (this.props.onPlaceChanged) {
           this.props.onPlaceChanged(place);
       }
