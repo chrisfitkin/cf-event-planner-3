@@ -9,7 +9,8 @@ import { IndexLink } from 'react-router'
 
 export const Header = () => (
   <AppBar
-    title="CF Event Planner"
+    title="Event Planner"
+    className="headerAppBar"
     iconElementLeft={
       <IconButton
         containerElement={<IndexLink to="/" />}
