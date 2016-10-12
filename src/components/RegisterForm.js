@@ -6,7 +6,7 @@ import { TextField } from 'redux-form-material-ui'
 
 const validate = values => {
   const errors = {}
-  const requiredFields = [ 'name', 'email', 'password1', 'password2' ]
+  const requiredFields = [ 'name', 'email', 'password1' ]
   requiredFields.forEach(field => {
     if (!values[ field ]) {
       errors[ field ] = 'Required'
@@ -24,12 +24,12 @@ const validate = values => {
   if (values.password1 && values.password1.length < 8) {
     errors.password1 = 'At least 8 characters required'
   }
-  if (values.password2 && values.password2.length < 8) {
-    errors.password2 = 'At least 8 characters'
-  }
-  if (values.password1 && values.password2 && values.password1 !== values.password2) {
-    errors.password2 = 'Passwords do not match'
-  }
+  // if (values.password2 && values.password2.length < 8) {
+  //   errors.password2 = 'At least 8 characters'
+  // }
+  // if (values.password1 && values.password2 && values.password1 !== values.password2) {
+  //   errors.password2 = 'Passwords do not match'
+  // }
   if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
     errors.email = 'Invalid email address'
   }
@@ -52,13 +52,13 @@ class RegisterForm extends Component {
         <form onSubmit={handleSubmit}>
           <div>
             <Field name="name" component={TextField} hintText="Chris Johnson" floatingLabelText="Name"
-              ref="name" withRef autoFocus autoComplete="name"/>
+              ref="name" withRef autoFocus required autoComplete="name"/>
           </div>
           <div>
-            <Field name="email" component={TextField} hintText="joe@greatdomain.io" floatingLabelText="Email" autoComplete="email"/>
+            <Field name="email" component={TextField} required hintText="joe@greatdomain.io" floatingLabelText="Email" autoComplete="email"/>
           </div>
           <div>
-            <Field name="password1" component={TextField} type="password" hintText="" floatingLabelText="Password"/>
+            <Field name="password1" component={TextField} required type="password" hintText="" floatingLabelText="Password"/>
           </div>
           <div>
           </div>

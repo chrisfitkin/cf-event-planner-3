@@ -201,6 +201,7 @@ class AddEventForm extends Component {
                   name='startDate'
                   ref='startDate'
                   hintText={todayFormatted}
+                  required
                 />
               </div>
               <div>
@@ -211,6 +212,7 @@ class AddEventForm extends Component {
                   floatingLabelText="Starting time"
                   name="startTime"
                   ref="startTime"
+                  required
                 />
               </div>
               <div>
@@ -223,6 +225,7 @@ class AddEventForm extends Component {
                   name='endDate'
                   ref='endDate'
                   hintText={todayFormatted}
+                  required
                 />
               </div>
               <div>
@@ -233,6 +236,7 @@ class AddEventForm extends Component {
                   name="endTime"
                   ref="endTime"
                   floatingLabelText="Ending time"
+                  required
                 />
               </div>
               <div>
