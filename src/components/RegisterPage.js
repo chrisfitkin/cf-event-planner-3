@@ -32,7 +32,7 @@ class RegisterPage extends Component {
   render() {
     return (
       <div style={divStyle}>
-        <h2 style={{fontFamily: this.context.muiTheme.fontFamily}}>Register a new user</h2>
+        {/*<h2 style={{fontFamily: this.context.muiTheme.fontFamily}}>Register a new user</h2>*/}
         <RegisterForm onSubmit={this.handleSubmit}/>
         <Snackbar
           open={this.state.open}

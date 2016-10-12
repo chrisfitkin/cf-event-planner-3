@@ -12,7 +12,7 @@ import moment from 'moment'
 // { favorite ? '<b>favorite</b>' : '' }
 
 const Event = (props) => {
-  const { onClick, favorite, title, host, eventType, startDate, startTime } = props
+  const { onClick, favorite, title, host, location, eventType, startDate, startTime } = props
     // endDate, endTime, location, message, inviteList } = props
   let separator = "  --  "
   return (
