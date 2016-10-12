@@ -16,7 +16,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin'
 
 import { addEvent } from './actions'
 
-// import style from './styles/main.css'
+import style from './styles/main.css'
 
 // console.log('reducers')
 // console.log(reducers)
