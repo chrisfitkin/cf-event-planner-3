@@ -11,6 +11,7 @@ import {
 import moment from 'moment';
 import { Step, Stepper, StepButton, StepContent } from 'material-ui/Stepper'
 import GoogleAutoComplete from '../components/GoogleAutoComplete'
+// import validate from './AddEventFormValidate.js'
 
 const validate = values => {
 
@@ -25,6 +26,9 @@ const validate = values => {
       errors[ field ] = 'Required'
     }
   })
+  if (values.startDate && values.endDate && values.startDate > values.endDate) {
+    errors.endDate = 'cannot end after the start date'
+  }
   // if (values.pizzas > 15) {
   //   errors.pizzas = 'Are you mad?'
   // }
@@ -33,6 +37,9 @@ const validate = values => {
   // }
   return errors
 }
+
+export default validate
+
 
 
 // let AddEventForm = props => {
