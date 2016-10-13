@@ -11,7 +11,6 @@ import {
 import moment from 'moment';
 import { Step, Stepper, StepButton, StepContent } from 'material-ui/Stepper'
 import GoogleAutoComplete from '../components/GoogleAutoComplete'
-// import validate from './AddEventFormValidate.js'
 
 const validate = values => {
 
@@ -26,8 +25,43 @@ const validate = values => {
       errors[ field ] = 'Required'
     }
   })
-  if (values.startDate && values.endDate && values.startDate > values.endDate) {
-    errors.endDate = 'cannot end after the start date'
+
+  if (values.startDate) {
+    let today = new Date()
+    today.setHours(0,0,0,0)
+    let startDate = new Date(values.startDate)
+    startDate.setHours(0,0,0,0)
+    let todayMoment = moment(today)
+    let startDateMoment = moment(startDate)
+    if(startDateMoment.isBefore(todayMoment)) {
+      console.log("Cannot start in the past")
+      errors.startDate = "Cannot start in the past"
+    }
+  }
+  if (values.startDate && values.endDate) {
+    let startDate = new Date(values.startDate)
+    startDate.setHours(0,0,0,0)
+    let endDate = new Date(values.endDate)
+    endDate.setHours(0,0,0,0)
+    console.log(endDate)
+    console.log(startDate)
+    if (moment(endDate).isBefore(moment(startDate))){
+      console.log("Cannot end after the start date")
+      errors.endDate = 'Cannot end after the start date'
+    }
+  }
+  if (values.startDate && values.endDate && values.startTime && values.endTime) {
+    let startDate = new Date(values.startDate)
+    startDate.setHours(0,0,0,0)
+    let endDate = new Date(values.endDate)
+    endDate.setHours(0,0,0,0)
+    let startTime = new Date(values.startTime)
+    let endTime = new Date(values.endTime)
+    if (moment(endDate).isSame(moment(startDate))
+      && moment(endTime).isBefore(moment(startTime))){
+      console.log("Cannot end after the start time")
+      errors.endTime = 'Cannot end after the start time'
+    }
   }
   // if (values.pizzas > 15) {
   //   errors.pizzas = 'Are you mad?'
@@ -37,9 +71,6 @@ const validate = values => {
   // }
   return errors
 }
-
-export default validate
-
 
 
 // let AddEventForm = props => {
@@ -97,7 +128,7 @@ class AddEventForm extends Component {
   }
 
   render() {
-    const { errors, handleSubmit, fields, handleAddEventSubmit, handleAddEventSubmitFinal, stepIndex} = this.props
+    const { errors, handleSubmit, fields, handleAddEventSubmit, handleAddEventSubmitFinal, stepIndex, handleCustomOnChange} = this.props
     // const { errors, handleSubmit, pristine, reset, submitting, fields, handleAddEventSubmit, handleAddEventSubmitFinal, stepIndex} = this.props
     const { maxSteps } = this.state;
     // let title, host, eventType, startDate, startTime, endDate, endTime, location, message, inviteList
@@ -156,7 +187,7 @@ class AddEventForm extends Component {
                 <Field
                   component={GoogleAutoComplete}
                   hintText="Acme, Co. or John Smith"
-                  floatingLabelText="Hosted by"
+                  floatingLabelText="Hosting company"
                   autoComplete="name"
                   placesTypes={['establishment']}
                   required
@@ -207,8 +238,10 @@ class AddEventForm extends Component {
                   type="text"
                   name='startDate'
                   ref='startDate'
+                  errorText={(fields.startDate && fields.startDate.touched) ? errors.startDate : ''}
                   hintText={todayFormatted}
-                  required
+                  onChange={e => handleCustomOnChange(e)}
+                  onBlur={e => handleCustomOnChange(e)}
                 />
               </div>
               <div>
@@ -219,7 +252,6 @@ class AddEventForm extends Component {
                   floatingLabelText="Starting time"
                   name="startTime"
                   ref="startTime"
-                  required
                 />
               </div>
               <div>
@@ -232,7 +264,6 @@ class AddEventForm extends Component {
                   name='endDate'
                   ref='endDate'
                   hintText={todayFormatted}
-                  required
                 />
               </div>
               <div>
@@ -243,7 +274,6 @@ class AddEventForm extends Component {
                   name="endTime"
                   ref="endTime"
                   floatingLabelText="Ending time"
-                  required
                 />
               </div>
               <div>
