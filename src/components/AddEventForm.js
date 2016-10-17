@@ -57,8 +57,11 @@ const validate = values => {
     endDate.setHours(0,0,0,0)
     let startTime = new Date(values.startTime)
     let endTime = new Date(values.endTime)
-    if (moment(endDate).isSame(moment(startDate))
-      && moment(endTime).isBefore(moment(startTime))){
+    if (moment(endDate).isSame(moment(startDate)) && (
+          moment(endTime).isBefore(moment(startTime)) ||
+          moment(endTime).isSame(moment(startTime))
+        )
+      ){
       console.log("Must end after the start time")
       errors.endTime = 'Must end after the start time'
     }
