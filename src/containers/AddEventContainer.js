@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { addEvent, addEventStepNext, addEventStepPrev, addEventStepReset } from '../actions'
 import AddEventForm from '../components/AddEventForm'
 import { browserHistory } from 'react-router'
-import { stopSubmit, reset, startSubmit } from 'redux-form'
+import { stopSubmit, reset, startSubmit, SubmissionError, blur } from 'redux-form'
 
 const mapStateToProps = (state) => {
   // console.log("------ state ------")
@@ -29,18 +29,26 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, ownProps, state) => ({
   // errors = state.form.addEventForm.syncErrors
-  handleCustomOnChange: (e) => {
-    console.log(e)
+  handleCustomOnBlur: (event, field) => {
+    // blur('addEventForm', field, value, touch)
+    dispatch(blur('addEventForm', field, undefined, true))
+    console.log('---------- handleCustomOnBlur ---------')
+    console.log(event)
     console.log(ownProps)
     console.log(state)
-    dispatch(reset('addEventForm'))
-    dispatch(startSubmit('addEventForm'))
-    dispatch(stopSubmit('addEventForm'))
+  },
+  handleCustomOnChange: (event) => {
+    console.log('---------- handleCustomOnChange ---------')
+    console.log(event)
+    console.log(ownProps)
+    console.log(state)
   },
   handleAddEventSubmit: (values) => {
     // console.log(values)
     // console.log(ownProps)
+    dispatch(stopSubmit('addEventForm'))
     dispatch(addEventStepNext(values))
+    throw new SubmissionError({ multistep: 'Moving to the next step.', _error: 'Next Step!' })
 
     // dispatch(addEvent(values))
     // browserHistory.push('/')

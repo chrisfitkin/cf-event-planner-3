@@ -16,7 +16,7 @@ const validate = values => {
 
   // const { store } = this.context
   // let state = store.getState()
-  // console.log(values)
+  console.log(values)
 
   const errors = {}
   const requiredFields = [ 'title', 'eventType', 'host', 'location', 'startDate', 'startTime', 'endDate', 'endTime' ]
@@ -46,8 +46,8 @@ const validate = values => {
     console.log(endDate)
     console.log(startDate)
     if (moment(endDate).isBefore(moment(startDate))){
-      console.log("Cannot end after the start date")
-      errors.endDate = 'Cannot end after the start date'
+      console.log("Must end after the start date")
+      errors.endDate = 'Must end after the start date'
     }
   }
   if (values.startDate && values.endDate && values.startTime && values.endTime) {
@@ -59,8 +59,8 @@ const validate = values => {
     let endTime = new Date(values.endTime)
     if (moment(endDate).isSame(moment(startDate))
       && moment(endTime).isBefore(moment(startTime))){
-      console.log("Cannot end after the start time")
-      errors.endTime = 'Cannot end after the start time'
+      console.log("Must end after the start time")
+      errors.endTime = 'Must end after the start time'
     }
   }
   // if (values.pizzas > 15) {
@@ -128,7 +128,7 @@ class AddEventForm extends Component {
   }
 
   render() {
-    const { errors, handleSubmit, fields, handleAddEventSubmit, handleAddEventSubmitFinal, stepIndex, handleCustomOnChange} = this.props
+    const { errors, handleSubmit, fields, handleAddEventSubmit, handleAddEventSubmitFinal, stepIndex, handleCustomOnChange, handleCustomOnBlur} = this.props
     // const { errors, handleSubmit, pristine, reset, submitting, fields, handleAddEventSubmit, handleAddEventSubmitFinal, stepIndex} = this.props
     const { maxSteps } = this.state;
     // let title, host, eventType, startDate, startTime, endDate, endTime, location, message, inviteList
@@ -241,7 +241,7 @@ class AddEventForm extends Component {
                   errorText={(fields.startDate && fields.startDate.touched) ? errors.startDate : ''}
                   hintText={todayFormatted}
                   onChange={e => handleCustomOnChange(e)}
-                  onBlur={e => handleCustomOnChange(e)}
+                  onBlur={event => { handleCustomOnBlur(event, 'startDate') }}
                 />
               </div>
               <div>
@@ -252,6 +252,7 @@ class AddEventForm extends Component {
                   floatingLabelText="Starting time"
                   name="startTime"
                   ref="startTime"
+                  onBlur={event => { handleCustomOnBlur(event, 'startTime') }}
                 />
               </div>
               <div>
@@ -264,6 +265,7 @@ class AddEventForm extends Component {
                   name='endDate'
                   ref='endDate'
                   hintText={todayFormatted}
+                  onBlur={event => { handleCustomOnBlur(event, 'endDate') }}
                 />
               </div>
               <div>
@@ -274,6 +276,7 @@ class AddEventForm extends Component {
                   name="endTime"
                   ref="endTime"
                   floatingLabelText="Ending time"
+                  onBlur={event => { handleCustomOnBlur(event, 'endTime') }}
                 />
               </div>
               <div>
