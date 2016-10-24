@@ -1,6 +1,23 @@
 # CF Event Planner
 by @chrisfitkin
 
+## About this project
+
+Modern javascript web app demonstrating best practice form features
+
+- Node.js React-Redux on Express
+- Material UI design with mobile-first layout
+- Google Places API autocomplete fields
+- Real time form field validation on change and blur
+- Accessibility compliant field labels for screen readers
+- HTML5 autofocus and autocomplete attributes with legacy browser polyfills
+
+## Demo
+
+[http://events.fitkin.net/](http://events.fitkin.net/ "CF Event Planner Demo on Heroku")
+
+Hosted on Heroku.  Initial load might be a little slow if the Heroku instance hasn't been accessed recently.
+
 This project template was built with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 ## Available Scripts
