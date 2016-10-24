@@ -12,6 +12,8 @@ Modern javascript web app demonstrating best practice form features
 - Accessibility compliant field labels for screen readers
 - HTML5 autofocus and autocomplete attributes with legacy browser polyfills
 
+This project built with [Create React App](https://github.com/facebookincubator/create-react-app).
+
 ## Demo
 
 [http://events.fitkin.net/](http://events.fitkin.net/ "CF Event Planner Demo on Heroku")
@@ -19,6 +21,11 @@ Modern javascript web app demonstrating best practice form features
 Hosted on Heroku.  Initial load might be a little slow if the Heroku instance hasn't been accessed recently.
 
 This project template was built with [Create React App](https://github.com/facebookincubator/create-react-app).
+
+
+---
+
+*Create React App* notes:
 
 ## Available Scripts
 
