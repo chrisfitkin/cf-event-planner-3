@@ -23,7 +23,6 @@ Hosted on Heroku.  Initial load might be a little slow if the Heroku instance ha
 This project template was built with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 
----
 
 > *Create React App* notes:
 >
